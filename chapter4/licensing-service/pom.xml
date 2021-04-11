@@ -16,7 +16,8 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<docker.image.prefix>ostock</docker.image.prefix>
+		<!-- changed so the image will be pushed to my DockerHub account-->
+		<docker.repo.account>wjcvanes</docker.repo.account>
 	</properties>
 
 	<dependencies>
@@ -63,7 +64,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.13</version>
 				<configuration>
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<repository>${docker.repo.account}/${project.artifactId}</repository>
 	                <tag>${project.version}</tag>
 					<buildArgs>
 						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
