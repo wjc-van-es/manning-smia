@@ -1,0 +1,243 @@
+Tuesday 27 April 2021
+After mvn clean package dockerfile:build -e on the parent pom (/home/willem/resources/git/manning-smia/chapter5/pom.xml)
+and a subsequent
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+we get during the startup of the third service licensingservice_1 (after startup of the dependent configserver_1 and database_1)
+org.postgresql.util.PSQLException: Connection to database:5400 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+
+When we look on the internet we find this problem is due to the url that cannot be found; it is NOT a authentication problem.
+see https://stackoverflow.com/questions/20825734/postgresql-connection-refused-check-that-the-hostname-and-port-are-correct-an
+it is suggested to check several things:
+1)  PostgreSQL isn't running
+
+2)  PostgreSQL isn't listening for TCP/IP connections (listen_addresses in postgresql.conf)
+
+3)  PostgreSQL is only listening on IPv4 (0.0.0.0 or 127.0.0.1) and you're connecting on IPv6 (::1) or vice versa. This seems to be an issue on some older Mac OS X versions that have weird IPv6 socket behaviour, and on some older Windows versions.
+
+4)  PostgreSQL is listening on a different port to the one you're connecting on
+
+5)  (unlikely) there's an iptables rule blocking loopback connections
+
+(If you are not connecting on localhost, it may also be a network firewall that's blocking TCP/IP connections, but I'm guessing you're using the defaults since you didn't say).
+
+So ... check those:
+
+$ ps -f -u postgres should list postgres processes
+(comment: this only reveals info from the postgres db running on host not the one inside the docker container)
+$ sudo lsof -n -u postgres |grep LISTEN
+ or
+$ sudo netstat -ltnp | grep postgres should show the TCP/IP addresses and ports PostgreSQL is listening on
+(comment: both these only reveals info from the postgres db running on host not the one inside the docker container)
+
+1) 2) and 4) (and probably 5)) can be ruled out as we could connect from the host machine with DBever connecting to
+localhost:5400/ostock_dev with the proper credentials.
+
+The problem is that the licensing-service could not connect from its container to the postgres container with the
+ network settings configured in chapter5/docker/docker-compose.yml, a bridge network named backend where the
+ postgres container was added with alias "database". The configserver added to the same bridge network with the alias
+ "configserver" apparantly could be reached by licensing-service or it wouldn't have the info for connecting to the database.
+
+ 2) Was further checked by running
+  ~/resources/git/manning-smia/chapter5$ docker run -i --rm postgres cat /usr/share/postgresql/postgresql.conf.sample > my-postgres.conf
+  (see https://hub.docker.com/_/postgres under Database Configuration) to see whether the setting listen_addresses = '*' was correctly set.
+  Which surely uses the same postgres image. Here we see in my-postgres.conf on line 59: listen_addresses = '*'
+  Moreover, https://github.com/docker-library/postgres/blob/7bd41786539082857396f4d1b4f1cb326ebee8de/13/Dockerfile
+  with the dockerfile for the current image we use we see on line 174 en 175 the listen_addresses set to '*' to indicate all ip addresses.
+
+Connection could also be established from the host by using the psql cli:
+
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ psql --help
+psql is the PostgreSQL interactive terminal.
+
+Usage:
+  psql [OPTION]... [DBNAME [USERNAME]]
+
+General options:
+  -c, --command=COMMAND    run only single command (SQL or internal) and exit
+  -d, --dbname=DBNAME      database name to connect to (default: "willem")
+  -f, --file=FILENAME      execute commands from file, then exit
+  -l, --list               list available databases, then exit
+  -v, --set=, --variable=NAME=VALUE
+                           set psql variable NAME to VALUE
+                           (e.g., -v ON_ERROR_STOP=1)
+  -V, --version            output version information, then exit
+  -X, --no-psqlrc          do not read startup file (~/.psqlrc)
+  -1 ("one"), --single-transaction
+                           execute as a single transaction (if non-interactive)
+  -?, --help[=options]     show this help, then exit
+      --help=commands      list backslash commands, then exit
+      --help=variables     list special variables, then exit
+
+Input and output options:
+  -a, --echo-all           echo all input from script
+  -b, --echo-errors        echo failed commands
+  -e, --echo-queries       echo commands sent to server
+  -E, --echo-hidden        display queries that internal commands generate
+  -L, --log-file=FILENAME  send session log to file
+  -n, --no-readline        disable enhanced command line editing (readline)
+  -o, --output=FILENAME    send query results to file (or |pipe)
+  -q, --quiet              run quietly (no messages, only query output)
+  -s, --single-step        single-step mode (confirm each query)
+  -S, --single-line        single-line mode (end of line terminates SQL command)
+
+Output format options:
+  -A, --no-align           unaligned table output mode
+  -F, --field-separator=STRING
+                           field separator for unaligned output (default: "|")
+  -H, --html               HTML table output mode
+  -P, --pset=VAR[=ARG]     set printing option VAR to ARG (see \pset command)
+  -R, --record-separator=STRING
+                           record separator for unaligned output (default: newline)
+  -t, --tuples-only        print rows only
+  -T, --table-attr=TEXT    set HTML table tag attributes (e.g., width, border)
+  -x, --expanded           turn on expanded table output
+  -z, --field-separator-zero
+                           set field separator for unaligned output to zero byte
+  -0, --record-separator-zero
+                           set record separator for unaligned output to zero byte
+
+Connection options:
+  -h, --host=HOSTNAME      database server host or socket directory (default: "/var/run/postgresql")
+  -p, --port=PORT          database server port (default: "5432")
+  -U, --username=USERNAME  database user name (default: "willem")
+  -w, --no-password        never prompt for password
+  -W, --password           force password prompt (should happen automatically)
+
+For more information, type "\?" (for internal commands) or "\help" (for SQL
+commands) from within psql, or consult the psql section in the PostgreSQL
+documentation.
+
+Report bugs to <pgsql-bugs@postgresql.org>.
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ psql -h localhost -p 5400 -U postgres
+Password for user postgres:
+psql (10.16 (Ubuntu 10.16-0ubuntu0.18.04.1), server 13.2 (Debian 13.2-1.pgdg100+1))
+WARNING: psql major version 10, server major version 13.
+         Some psql features might not work.
+Type "help" for help.
+
+postgres=# select version();
+                                                     version
+------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 13.2 (Debian 13.2-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+(1 row)
+
+postgres=# select * from public.licenses;
+ERROR:  relation "public.licenses" does not exist
+LINE 1: select * from public.licenses;
+                      ^
+postgres=# select * from licenses;
+ERROR:  relation "licenses" does not exist
+LINE 1: select * from licenses;
+
+postgres=# ^Z
+# comment: Stopped with [Ctrl-Z]
+[1]+  Stopped                 psql -h localhost -p 5400 -U postgres
+
+# comment I needed to pass in the database name as well or the default would be "willem" (as with the username)
+# Moreover, we check 0.0.0.0 as host instead of localhost
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ psql -h 0.0.0.0 -p 5400 -U postgres -d ostock_dev
+Password for user postgres:
+psql (10.16 (Ubuntu 10.16-0ubuntu0.18.04.1), server 13.2 (Debian 13.2-1.pgdg100+1))
+WARNING: psql major version 10, server major version 13.
+         Some psql features might not work.
+Type "help" for help.
+
+ostock_dev=# select * from public.licenses;
+              license_id              |           organization_id            |   description    | product_name | license_type | comment
+--------------------------------------+--------------------------------------+------------------+--------------+--------------+----------
+ f2a9c9d4-d2c0-44fa-97fe-724d77173c62 | d898a142-de44-466c-8c88-9ceb2c2429d3 | Software Product | Ostock       | complete     | I AM DEV
+ 279709ff-e6d5-4a54-8b55-a5c37542025b | e839ee96-28de-4f67-bb79-870ca89743a0 | Software Product | Ostock       | complete     | I AM DEV
+(2 rows)
+
+ostock_dev=# ^Z
+[3]+  Stopped                 psql -h 0.0.0.0 -p 5400 -U postgres -d ostock_dev
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$
+
+As the 'database' host alias doesn't seem to work Maybe another ip address can be revealed to be listened to by the backend network:
+
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+722ca6cc8f2a   bridge            bridge    local
+e870dd3a8eb6   docker_backend    bridge    local
+7e8a544b0696   docker_gwbridge   bridge    local
+870f3d5c64e1   host              host      local
+x5675i7eeht4   ingress           overlay   swarm
+c564c5d80bf2   none              null      local
+
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ docker network inspect docker_backend
+[
+    {
+        "Name": "docker_backend",
+        "Id": "e870dd3a8eb6446b334771e95c3845f9ab9b285a4f9f376f5e7046d9738ff99e",
+        "Created": "2021-04-27T23:32:35.1961596+02:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.20.0.0/16",
+                    "Gateway": "172.20.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": true,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "7729bbe5bb01af95e2089dca55327dbea46b7ba064320a83e0c0ccd90cfeddb3": {
+                "Name": "docker_configserver_1",
+                "EndpointID": "d2e61c89c90f6add19087c3dda3f6fa9f03b6fc9d87d27b19c68522e21b6fc99",
+                "MacAddress": "02:42:ac:14:00:02",
+                "IPv4Address": "172.20.0.2/16",
+                "IPv6Address": ""
+            },
+            "b650a20577a8d2e0db2a31e99f8b751fa6d4dd59de99005b3ed91de50a3c0a2a": {
+                "Name": "docker_database_1",
+                "EndpointID": "fba3d589a07602e7609c22fecf159c0dde2994c9f1b7bb7748b55e75e9c50180",
+                "MacAddress": "02:42:ac:14:00:03",
+                "IPv4Address": "172.20.0.3/16",
+                "IPv6Address": ""
+            },
+            "c9010fce023aa9b43a60d91eae51815032b31a1d237bebe537609e3960ad0531": {
+                "Name": "docker_licensingservice_1",
+                "EndpointID": "844216258bc8f8393679896d151686608ca8c299900b815fe5536f8e9fb6bbbb",
+                "MacAddress": "02:42:ac:14:00:04",
+                "IPv4Address": "172.20.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.network": "backend",
+            "com.docker.compose.project": "docker",
+            "com.docker.compose.version": "1.28.4"
+        }
+    }
+]
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$
+From this we can surmize that instead of the alias 'database' we could use the name 'docker_database_1'
+after changing this in chapter5/configserver/src/main/resources/config/licensing-service-dev.properties
+followed by
+mvn clean package dockerfile:build -e
+followed by
+~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+we get
+org.postgresql.util.PSQLException: Connection to docker_database_1:5400 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+
+This shows up that configurations are read correctly from http://configserver:8071 as the database hostname is
+successfully altered, but to no avail with regard to db connection
+When we rerun we see the ipv4 address of is consistently set to 172.21.0.3 so we could try that next.
+
+Now we get a different error:
+org.postgresql.util.PSQLException: The connection attempt failed. Seems different now authentication error?
+Caused by: java.net.SocketTimeoutException: connect timed out
+Maybe the database startup took to long before the license-service kicked in
+This problem persisted with the second attempt with just
+~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
