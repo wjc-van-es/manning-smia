@@ -1,12 +1,12 @@
-version: '2.1'
+version: '3'
 services:
   database:
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5400:5432"
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_PASSWORD: "postgres" # read from environment variable or .env file instead
       POSTGRES_DB:       "ostock_dev"
     volumes:
         - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
@@ -21,7 +21,7 @@ services:
       timeout: 5s
       retries: 5
   configserver:
-    image: ostock/configserver:0.0.1-SNAPSHOT
+    image: wjcvanes/configserver:0.0.1-SNAPSHOT
     ports:
        - "8071:8071"
     environment:
@@ -31,12 +31,12 @@ services:
         aliases:
           - "configserver"
   licensingservice:
-    image: ostock/licensing-service:0.0.2-SNAPSHOT
+    image: wjcvanes/licensing-service:0.0.2-SNAPSHOT
     environment:
       PROFILE: "dev"
       CONFIGSERVER_URI: "http://configserver:8071"
       CONFIGSERVER_PORT:   "8071"
-      DATABASESERVER_PORT: "5432"
+      DATABASESERVER_PORT: "5400"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       database:
