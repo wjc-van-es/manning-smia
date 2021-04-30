@@ -1,3 +1,30 @@
+Friday 30 April 2021
+The solution was simple
+we should be beware that the port mapping "5400:5432" in chapter5/docker/docker-compose.yml is only for exposure to the
+external host. When connecting from another Docker container via the defined bridge network named backend, however,
+we need to use the port the database container uses internally: 5432 (and NOT 5400)
+With DBeaver from the external host, however, we DO use localhost:5400 successfully.
+Moreover, localhost within a Docker container always means only the container itself not any other container or
+the external host (on which the containers are running).
+
+What we also introduced was fixed ipv4 address mapping within the backend bridge network see chapter5/docker/docker-compose.yml
+With that we can use both the alias or the designated fixed ipv4 address for spring.datasource.url,
+jdbc:postgresql://database:5432/ostock_dev and jdbc:postgresql://172.22.0.3:5432/ostock_dev respectively.
+
+Furthermore we have switched off the Swarm mode that was still going, because we suspected at an earlier stage that this
+might hinder the use of the backend network using the bridge protocol.
+willem@willem-Latitude-5590:~$ docker node ls
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wclrq0cuou2yzhifmk56hu74p *   willem-Latitude-5590   Ready     Active         Leader           20.10.6
+willem@willem-Latitude-5590:~$ docker swarm leave
+Error response from daemon: You are attempting to leave the swarm on a node that is participating as a manager. Removing the last manager erases all current state of the swarm. Use `--force` to ignore this message.
+willem@willem-Latitude-5590:~$ docker swarm leave --force
+Node left the swarm.
+willem@willem-Latitude-5590:~$ docker node ls
+Error response from daemon: This node is not a swarm manager. Use "docker swarm init" or "docker swarm join" to connect this node to swarm and try again.
+willem@willem-Latitude-5590:~$
+
+===========================================================================================================================
 Tuesday 27 April 2021
 After mvn clean package dockerfile:build -e on the parent pom (/home/willem/resources/git/manning-smia/chapter5/pom.xml)
 and a subsequent
