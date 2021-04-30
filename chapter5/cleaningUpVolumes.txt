@@ -1,0 +1,133 @@
+# As no volumes for the database container are set explictly in chapter5/docker/docker-compose.yml a different
+directory with a random name is created under /var/lib/docker/volumes everytime the services are tested with each
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+
+If we were to declare an explicit name for the volume a dir with this name would under /var/lib/docker/volumes and it
+would be reused every time the database container was created and run from docker-compose.
+This would have the effect of seeing that the 2 init sql scripts would not be rerun and any data added during a test session
+would still be visible, because the same named volume would be loaded. That is until the volume was actively removed with
+Docker CLI
+$ docker volume remove volume_name
+or
+$ docker volume prune
+to remove all unused volumes under /var/lib/docker/volumes
+
+As it is the volumes will keep accumulating with each test run, therefore it is recommended to run $ docker volume prune
+when you're done.
+    ---
+See a session at the end of several test runs to fix the database connection issue:
+
+willem@willem-Latitude-5590:~$ cd /var/lib/docker
+willem@willem-Latitude-5590:/var/lib/docker$ sudo ls -la
+[sudo] password for willem:
+total 72
+drwx--x--x  14 root root  4096 Apr 30 14:58 .
+drwxr-xr-x  75 root root  4096 Feb 15 23:04 ..
+drwx------   2 root root  4096 Mar 12  2020 builder
+drwx--x--x   4 root root  4096 Dec  9 22:52 buildkit
+drwx-----x   3 root root  4096 May  1 01:17 containers
+drwx------   3 root root  4096 Mar 12  2020 image
+drwxr-x---   3 root root  4096 Mar 12  2020 network
+drwx-----x 133 root root 20480 May  1 01:17 overlay2
+drwx------   4 root root  4096 Mar 12  2020 plugins
+drwx------   2 root root  4096 Apr 30 14:58 runtimes
+drwx------   2 root root  4096 Apr 30 23:08 swarm
+drwx------   2 root root  4096 May  1 00:46 tmp
+drwx------   2 root root  4096 Mar 12  2020 trust
+drwx-----x  26 root root  4096 May  1 00:46 volumes
+willem@willem-Latitude-5590:/var/lib/docker$ cd volumes
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ sudo ls -la
+total 148
+drwx-----x 26 root root   4096 May  1 00:46 .
+drwx--x--x 14 root root   4096 Apr 30 14:58 ..
+drwx-----x  3 root root   4096 Apr 30 23:24 045afd6eb2ac0360796b8b6c5cbb351356ed046d7013967678e2544f1ff1b306
+drwx-----x  3 root root   4096 Apr 30 23:30 0711208eec284841a30fd6302e6f3b70a7481748281a35dbcd4e5511140b60b7
+drwx-----x  3 root root   4096 Apr 30 23:33 071ab4c031a2476174c532e2511299fabcee62ec70825e4b3bfbe685eb2ec8a0
+drwx-----x  3 root root   4096 May  1 00:30 085ad08f37e931bd4b5f2f36be6e34cdb8868f66de10c811ad4ef4ebd6bb7a6c
+drwx-----x  3 root root   4096 Apr 30 23:25 0926945e3660237d00d53e638e21e6d770c4baa05a7cc6ec862ef56fcbd0e4a8
+drwx-----x  3 root root   4096 May  1 00:30 0aee2186b3a6972a93dc2351ccee7b0d4bc0fb5c22eb46837ffdfb0ffb734137
+drwx-----x  3 root root   4096 Apr 30 23:30 164f37429022c575c14c99267bfe70028b6e3cc8b2ff977dbf0855e2dd1749af
+drwx-----x  3 root root   4096 Apr 30 23:33 17c19fc6ca6047c8b481123860f136fba1dbf56a9517164484b9865da85c4a3f
+drwx-----x  3 root root   4096 May  1 00:27 2dbce3a69f310089490f26b80187ac7e4139e184bf88f513a817c4413b255a30
+drwx-----x  3 root root   4096 Apr 30 23:15 3151c7cb3806eede86e11d6a27ea10f72ef3c4e977c059e01348ed7fbfc6f0d0
+drwx-----x  3 root root   4096 Apr 30 23:24 387b65c255c97d8b57ab29a3ca0ca4ab3fb53837581f40e27d058162806b267c
+drwx-----x  3 root root   4096 Apr 30 23:58 44a207b7678d33099cb030a1ba35e4c2d0c6911bf287cebc451fefa06c570246
+drwx-----x  3 root root   4096 May  1 00:27 7370fa4f4e71948fcaeda0e213b1b765d308fc6633e3444454fda933f7159faf
+drwx-----x  3 root root   4096 Apr 30 23:33 7b7f0bc1d61b3a432dc44fa30c8924d5ac9c90dd5d98a5019eb9167223f70314
+drwx-----x  3 root root   4096 Apr 30 23:58 7ee17d01cec3bbcd729415b3eff28cdf3ede7288d463504429e773b490525d32
+drwx-----x  3 root root   4096 May  1 00:27 a0016671ce48f35e93c5aed943931a5cb1e58e1a98d5b3d6fe052cb7a7034394
+drwx-----x  3 root root   4096 Apr 30 23:30 a600ddd5788bf38c932a8011ef2eb3fd42e2c293c8d629273ead6b0029d556a3
+drwx-----x  3 root root   4096 May  1 00:46 ba31ee22d147e26cc375a542e36239634165faafdda942fe976dc51b18e6c422
+brw-------  1 root root 259, 2 Apr 30 14:58 backingFsBlockDev
+drwx-----x  3 root root   4096 Apr 30 23:15 bb7b8536376f22f9ca7ead0e7b19c9fef3f6ce15ca78c54a121da31f12de58b2
+drwx-----x  3 root root   4096 May  1 00:30 cb53c65817828ca500feb32f62784c4daad36cb7f619741df7c89b0064986c1b
+drwx-----x  3 root root   4096 May  1 00:46 d2f90e4651312ba94ebb7edebb4a68829784b587d6feecf390379f9843b11c60
+drwx-----x  3 root root   4096 May  1 00:46 dcad0c4cc469b7609b0e34db5b5ed36b561e9be7531852fe0a5e602bd920f9f5
+drwx-----x  3 root root   4096 Apr 30 23:15 de015eebb49f30f9969efd26d4655b2ad8478431b713ffce214287b6f1695d03
+drwx-----x  3 root root   4096 Apr 30 23:58 f29b5323d10c85338c23e2e6d33e464a10a8104bde9f503ceed31c9104c9e665
+-rw-------  1 root root  65536 May  1 00:46 metadata.db
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
+DRIVER    VOLUME NAME
+local     0aee2186b3a6972a93dc2351ccee7b0d4bc0fb5c22eb46837ffdfb0ffb734137
+local     2dbce3a69f310089490f26b80187ac7e4139e184bf88f513a817c4413b255a30
+local     7b7f0bc1d61b3a432dc44fa30c8924d5ac9c90dd5d98a5019eb9167223f70314
+local     7ee17d01cec3bbcd729415b3eff28cdf3ede7288d463504429e773b490525d32
+local     17c19fc6ca6047c8b481123860f136fba1dbf56a9517164484b9865da85c4a3f
+local     44a207b7678d33099cb030a1ba35e4c2d0c6911bf287cebc451fefa06c570246
+local     045afd6eb2ac0360796b8b6c5cbb351356ed046d7013967678e2544f1ff1b306
+local     071ab4c031a2476174c532e2511299fabcee62ec70825e4b3bfbe685eb2ec8a0
+local     085ad08f37e931bd4b5f2f36be6e34cdb8868f66de10c811ad4ef4ebd6bb7a6c
+local     164f37429022c575c14c99267bfe70028b6e3cc8b2ff977dbf0855e2dd1749af
+local     387b65c255c97d8b57ab29a3ca0ca4ab3fb53837581f40e27d058162806b267c
+local     3151c7cb3806eede86e11d6a27ea10f72ef3c4e977c059e01348ed7fbfc6f0d0
+local     7370fa4f4e71948fcaeda0e213b1b765d308fc6633e3444454fda933f7159faf
+local     0711208eec284841a30fd6302e6f3b70a7481748281a35dbcd4e5511140b60b7
+local     0926945e3660237d00d53e638e21e6d770c4baa05a7cc6ec862ef56fcbd0e4a8
+local     a600ddd5788bf38c932a8011ef2eb3fd42e2c293c8d629273ead6b0029d556a3
+local     a0016671ce48f35e93c5aed943931a5cb1e58e1a98d5b3d6fe052cb7a7034394
+local     ba31ee22d147e26cc375a542e36239634165faafdda942fe976dc51b18e6c422
+local     bb7b8536376f22f9ca7ead0e7b19c9fef3f6ce15ca78c54a121da31f12de58b2
+local     cb53c65817828ca500feb32f62784c4daad36cb7f619741df7c89b0064986c1b
+local     d2f90e4651312ba94ebb7edebb4a68829784b587d6feecf390379f9843b11c60
+local     dcad0c4cc469b7609b0e34db5b5ed36b561e9be7531852fe0a5e602bd920f9f5
+local     de015eebb49f30f9969efd26d4655b2ad8478431b713ffce214287b6f1695d03
+local     f29b5323d10c85338c23e2e6d33e464a10a8104bde9f503ceed31c9104c9e665
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume prune
+WARNING! This will remove all local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Deleted Volumes:
+071ab4c031a2476174c532e2511299fabcee62ec70825e4b3bfbe685eb2ec8a0
+7b7f0bc1d61b3a432dc44fa30c8924d5ac9c90dd5d98a5019eb9167223f70314
+f29b5323d10c85338c23e2e6d33e464a10a8104bde9f503ceed31c9104c9e665
+0aee2186b3a6972a93dc2351ccee7b0d4bc0fb5c22eb46837ffdfb0ffb734137
+de015eebb49f30f9969efd26d4655b2ad8478431b713ffce214287b6f1695d03
+0926945e3660237d00d53e638e21e6d770c4baa05a7cc6ec862ef56fcbd0e4a8
+164f37429022c575c14c99267bfe70028b6e3cc8b2ff977dbf0855e2dd1749af
+17c19fc6ca6047c8b481123860f136fba1dbf56a9517164484b9865da85c4a3f
+cb53c65817828ca500feb32f62784c4daad36cb7f619741df7c89b0064986c1b
+ba31ee22d147e26cc375a542e36239634165faafdda942fe976dc51b18e6c422
+d2f90e4651312ba94ebb7edebb4a68829784b587d6feecf390379f9843b11c60
+bb7b8536376f22f9ca7ead0e7b19c9fef3f6ce15ca78c54a121da31f12de58b2
+0711208eec284841a30fd6302e6f3b70a7481748281a35dbcd4e5511140b60b7
+a0016671ce48f35e93c5aed943931a5cb1e58e1a98d5b3d6fe052cb7a7034394
+085ad08f37e931bd4b5f2f36be6e34cdb8868f66de10c811ad4ef4ebd6bb7a6c
+dcad0c4cc469b7609b0e34db5b5ed36b561e9be7531852fe0a5e602bd920f9f5
+a600ddd5788bf38c932a8011ef2eb3fd42e2c293c8d629273ead6b0029d556a3
+7ee17d01cec3bbcd729415b3eff28cdf3ede7288d463504429e773b490525d32
+045afd6eb2ac0360796b8b6c5cbb351356ed046d7013967678e2544f1ff1b306
+44a207b7678d33099cb030a1ba35e4c2d0c6911bf287cebc451fefa06c570246
+7370fa4f4e71948fcaeda0e213b1b765d308fc6633e3444454fda933f7159faf
+2dbce3a69f310089490f26b80187ac7e4139e184bf88f513a817c4413b255a30
+3151c7cb3806eede86e11d6a27ea10f72ef3c4e977c059e01348ed7fbfc6f0d0
+387b65c255c97d8b57ab29a3ca0ca4ab3fb53837581f40e27d058162806b267c
+
+Total reclaimed space: 396MB
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
+DRIVER    VOLUME NAME
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ sudo ls -la
+total 52
+drwx-----x  2 root root   4096 May  1 01:20 .
+drwx--x--x 14 root root   4096 Apr 30 14:58 ..
+brw-------  1 root root 259, 2 Apr 30 14:58 backingFsBlockDev
+-rw-------  1 root root  65536 May  1 01:20 metadata.db
+willem@willem-Latitude-5590:/var/lib/docker/volumes$

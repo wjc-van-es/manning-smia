@@ -53,3 +53,6 @@ I'd like you to send me an email on <illaryhs@gmail.com> about anything you'd wa
 
 ### Contributing
 Feel free to file an issue if it doesn't work for your code sample. Thanks.
+
+### Notes
+
