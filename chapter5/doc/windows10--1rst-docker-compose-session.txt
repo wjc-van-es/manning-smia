@@ -349,3 +349,128 @@ postgres                     latest           26c8bcd8b719   4 weeks ago      31
 wjcvanes/gsd                 1st-ctr          ce0b8f93ac45   2 months ago     122MB
 
 WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+=======================================================================================================================================================================================
+Second docker-compose up
+
+C:\Users\A141185\git\manning-smia\chapter5\docker>docker-compose up
+Docker Compose is now in the Docker CLI, try `docker compose up`
+
+Starting docker_database_1     ... done
+Starting docker_configserver_1 ... done
+Starting docker_licensingservice_1 ... done
+Attaching to docker_database_1, docker_configserver_1, docker_licensingservice_1
+configserver_1      |
+configserver_1      |   .   ____          _            __ _ _
+configserver_1      |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+configserver_1      | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+configserver_1      |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+configserver_1      |   '  |____| .__|_| |_|_| |_\__, | / / / /
+configserver_1      |  =========|_|==============|___/=/_/_/_/
+configserver_1      |  :: Spring Boot ::        (v2.2.3.RELEASE)
+configserver_1      |
+configserver_1      | 2021-05-09 17:03:10.056  INFO 1 --- [           main] c.o.c.ConfigurationServerApplication     : The following profiles are active: native
+configserver_1      | 2021-05-09 17:03:12.184  INFO 1 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=4a0cd2d0-fe15-3c1b-abdf-ae973a21bc40
+configserver_1      | 2021-05-09 17:03:12.925  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8071 (http)
+configserver_1      | 2021-05-09 17:03:12.950  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+configserver_1      | 2021-05-09 17:03:12.950  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+configserver_1      | 2021-05-09 17:03:13.221  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+configserver_1      | 2021-05-09 17:03:13.221  INFO 1 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3133 ms
+configserver_1      | 2021-05-09 17:03:14.147  INFO 1 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+configserver_1      | 2021-05-09 17:03:15.306  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoint(s) beneath base path '/actuator'
+configserver_1      | 2021-05-09 17:03:15.498  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8071 (http) with context path ''
+configserver_1      | 2021-05-09 17:03:15.513  INFO 1 --- [           main] c.o.c.ConfigurationServerApplication     : Started ConfigurationServerApplication in 8.381 seconds (JVM runn
+ing for 9.824)
+database_1          |
+database_1          | PostgreSQL Database directory appears to contain a database; Skipping initialization
+database_1          |
+database_1          | 2021-05-09 17:03:05.939 UTC [1] LOG:  starting PostgreSQL 13.2 (Debian 13.2-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+database_1          | 2021-05-09 17:03:05.941 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+database_1          | 2021-05-09 17:03:05.941 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+database_1          | 2021-05-09 17:03:05.966 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+database_1          | 2021-05-09 17:03:05.989 UTC [28] LOG:  database system was shut down at 2021-05-09 16:47:53 UTC
+database_1          | 2021-05-09 17:03:06.016 UTC [1] LOG:  database system is ready to accept connections
+licensingservice_1  |
+licensingservice_1  |   .   ____          _            __ _ _
+licensingservice_1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+licensingservice_1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+licensingservice_1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+licensingservice_1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+licensingservice_1  |  =========|_|==============|___/=/_/_/_/
+licensingservice_1  |  :: Spring Boot ::        (v2.2.3.RELEASE)
+licensingservice_1  |
+licensingservice_1  | 2021-05-09 17:03:20.414  INFO 1 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://configserver:8071
+configserver_1      | 2021-05-09 17:03:20.753  INFO 1 --- [nio-8071-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+configserver_1      | 2021-05-09 17:03:20.754  INFO 1 --- [nio-8071-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+configserver_1      | 2021-05-09 17:03:20.807  INFO 1 --- [nio-8071-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 46 ms
+configserver_1      | 2021-05-09 17:03:21.207  INFO 1 --- [nio-8071-exec-1] o.s.c.c.s.e.NativeEnvironmentRepository  : Adding property source: classpath:/config/licensing-service-dev.p
+roperties
+configserver_1      | 2021-05-09 17:03:21.208  INFO 1 --- [nio-8071-exec-1] o.s.c.c.s.e.NativeEnvironmentRepository  : Adding property source: classpath:/config/licensing-service.prope
+rties
+licensingservice_1  | 2021-05-09 17:03:21.441  INFO 1 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=licensing-service, profiles=[dev], labe
+l=null, version=null, state=null
+licensingservice_1  | 2021-05-09 17:03:21.444  INFO 1 --- [           main] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstra
+pProperties-classpath:/config/licensing-service-dev.properties'}, BootstrapPropertySource {name='bootstrapProperties-classpath:/config/licensing-service.properties'}]
+licensingservice_1  | 2021-05-09 17:03:21.480  INFO 1 --- [           main] c.o.license.LicenseServiceApplication    : The following profiles are active: dev
+licensingservice_1  | 2021-05-09 17:03:23.930  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+licensingservice_1  | 2021-05-09 17:03:24.049  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101ms. Found 1 JPA re
+pository interfaces.
+licensingservice_1  | 2021-05-09 17:03:24.529  INFO 1 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=baa64816-a477-347c-b5ec-c824b8dbf672
+licensingservice_1  | 2021-05-09 17:03:24.852  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransaction
+ManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (f
+or example: not eligible for auto-proxying)
+licensingservice_1  | 2021-05-09 17:03:25.328  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+licensingservice_1  | 2021-05-09 17:03:25.345  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+licensingservice_1  | 2021-05-09 17:03:25.345  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+licensingservice_1  | 2021-05-09 17:03:25.650  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+licensingservice_1  | 2021-05-09 17:03:25.650  INFO 1 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4003 ms
+licensingservice_1  | 2021-05-09 17:03:27.386  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+licensingservice_1  | 2021-05-09 17:03:27.517  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+licensingservice_1  | 2021-05-09 17:03:27.739  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+licensingservice_1  | 2021-05-09 17:03:27.985  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+licensingservice_1  | 2021-05-09 17:03:28.248  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+licensingservice_1  | 2021-05-09 17:03:28.281  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+
+licensingservice_1  | 2021-05-09 17:03:29.604  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engin
+e.transaction.jta.platform.internal.NoJtaPlatform]
+licensingservice_1  | 2021-05-09 17:03:29.621  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'defaul
+t'
+licensingservice_1  | 2021-05-09 17:03:30.228  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, databas
+e queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+licensingservice_1  | 2021-05-09 17:03:31.407  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 19 endpoint(s) beneath base path '/actuator'
+licensingservice_1  | 2021-05-09 17:03:31.578  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+licensingservice_1  | 2021-05-09 17:03:31.588  INFO 1 --- [           main] c.o.license.LicenseServiceApplication    : Started LicenseServiceApplication in 13.831 seconds (JVM running
+for 14.715)
+licensingservice_1  | 2021-05-09 17:07:05.721  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+licensingservice_1  | 2021-05-09 17:07:05.722  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+licensingservice_1  | 2021-05-09 17:07:05.749  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 27 ms
+licensingservice_1  | 2021-05-09 17:07:05.816  WARN 1 --- [nio-8080-exec-1] o.s.web.servlet.PageNotFound             : Request method 'GET' not supported
+licensingservice_1  | Hibernate: select license0_.license_id as license_1_0_, license0_.comment as comment2_0_, license0_.description as descript3_0_, license0_.license_type as license
+_4_0_, license0_.organization_id as organiza5_0_, license0_.product_name as product_6_0_ from licenses license0_ where license0_.organization_id=? and license0_.license_id=?
+licensingservice_1  | 2021-05-09 17:09:36.730  WARN 1 --- [nio-8080-exec-6] o.s.web.servlet.PageNotFound             : No mapping for GET /favicon.ico
+licensingservice_1  | Hibernate: select license0_.license_id as license_1_0_, license0_.comment as comment2_0_, license0_.description as descript3_0_, license0_.license_type as license
+_4_0_, license0_.organization_id as organiza5_0_, license0_.product_name as product_6_0_ from licenses license0_ where license0_.organization_id=? and license0_.license_id=?
+licensingservice_1  | Hibernate: select license0_.license_id as license_1_0_, license0_.comment as comment2_0_, license0_.description as descript3_0_, license0_.license_type as license
+_4_0_, license0_.organization_id as organiza5_0_, license0_.product_name as product_6_0_ from licenses license0_ where license0_.organization_id=? and license0_.license_id=?
+licensingservice_1  | Hibernate: select license0_.license_id as license_1_0_, license0_.comment as comment2_0_, license0_.description as descript3_0_, license0_.license_type as license
+_4_0_, license0_.organization_id as organiza5_0_, license0_.product_name as product_6_0_ from licenses license0_ where license0_.organization_id=? and license0_.license_id=?
+licensingservice_1  | Hibernate: select license0_.license_id as license_1_0_, license0_.comment as comment2_0_, license0_.description as descript3_0_, license0_.license_type as license
+_4_0_, license0_.organization_id as organiza5_0_, license0_.product_name as product_6_0_ from licenses license0_ where license0_.organization_id=? and license0_.license_id=?
+licensingservice_1  | Hibernate: select license0_.license_id as license_1_0_, license0_.comment as comment2_0_, license0_.description as descript3_0_, license0_.license_type as license
+_4_0_, license0_.organization_id as organiza5_0_, license0_.product_name as product_6_0_ from licenses license0_ where license0_.organization_id=? and license0_.license_id=?
+licensingservice_1  | 2021-05-09 17:18:30.369  INFO 1 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+licensingservice_1  | 2021-05-09 17:18:30.379  INFO 1 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+licensingservice_1  | 2021-05-09 17:18:30.471  INFO 1 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+docker_licensingservice_1 exited with code 143
+database_1          | 2021-05-09 17:18:31.612 UTC [1] LOG:  received fast shutdown request
+configserver_1      | 2021-05-09 17:18:31.648  INFO 1 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+database_1          | 2021-05-09 17:18:31.648 UTC [1] LOG:  aborting any active transactions
+database_1          | 2021-05-09 17:18:31.648 UTC [145] FATAL:  terminating connection due to administrator command
+database_1          | 2021-05-09 17:18:31.650 UTC [144] FATAL:  terminating connection due to administrator command
+database_1          | 2021-05-09 17:18:31.651 UTC [143] FATAL:  terminating connection due to administrator command
+database_1          | 2021-05-09 17:18:31.665 UTC [1] LOG:  background worker "logical replication launcher" (PID 34) exited with exit code 1
+database_1          | 2021-05-09 17:18:31.669 UTC [29] LOG:  shutting down
+database_1          | 2021-05-09 17:18:31.918 UTC [1] LOG:  database system is shut down
+docker_configserver_1 exited with code 143
+docker_database_1 exited with code 0
+
+C:\Users\A141185\git\manning-smia\chapter5\docker>
