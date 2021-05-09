@@ -1,4 +1,4 @@
-version: '2.4'
+version: '3.9'
 services:
   database:
     image: postgres:latest
@@ -8,9 +8,17 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres" # read from environment variable or .env file instead
       POSTGRES_DB:       "ostock_dev"
+
+    # adding a third named (fixed) volume for persisting data between runs (which, as named volume, must be listed under
+    # the top-level volumes key, added at the bottom of the file)
+    # this volume will be situated on the host under /var/lib/docker/volumes
+    # after the first run data will remain in /var/lib/docker/volumes/smia-ch5-postgres-volume and the sql scripts won't be executed again
+    # only after removing the named volume with $ docker volume rm smia-ch5-postgres-volume will the scripts be run
+    # together with the volume recreation
     volumes:
         - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
         - ./data.sql:/docker-entrypoint-initdb.d/2-data.sql
+        - smia-ch5-postgres-volume:/var/lib/postgresql/data # adding fixed volume for data storage
     networks:
       backend:
         ipv4_address: 172.22.0.3
@@ -61,3 +69,7 @@ networks:
       config:
         - subnet: 172.22.0.0/16
           gateway: 172.22.0.1
+
+# top level volumes key was added to accommodate the named volume smia-ch5-postgres-volume under the database service
+volumes:
+  smia-ch5-postgres-volume:

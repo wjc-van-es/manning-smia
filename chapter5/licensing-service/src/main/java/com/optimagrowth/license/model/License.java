@@ -1,9 +1,6 @@
 package com.optimagrowth.license.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.hateoas.RepresentationModel;
 
@@ -30,8 +27,12 @@ public class License extends RepresentationModel<License> {
 	@Column(name="comment")
 	private String comment;
 
-	public License withComment(String comment){
-		this.setComment(comment);
+	// Added to fill with the property from the configserver
+	@Transient
+	private String environment;
+
+	public License withEnvironment(String environment){
+		this.setEnvironment(environment);
 		return this;
 	}
 }

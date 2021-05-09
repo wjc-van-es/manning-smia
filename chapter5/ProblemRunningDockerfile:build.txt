@@ -1,0 +1,132 @@
+When running mvn clean package dockerfile:build -e
+image could no longer be build with the com.spotify:dockerfile-maven-plugin:1.4.13:build
+Connecting to https://hub.docker.com doesn't help either
+[ERROR] Failed to execute goal com.spotify:dockerfile-maven-plugin:1.4.13:build (default-cli) on project configserver: Could not build image: java.io.IOException: Cannot run program "docker-credential-secretservice": error=2, No such file or directory -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal com.spotify:dockerfile-maven-plugin:1.4.13:build (default-cli) on project configserver: Could not build image
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:215)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+    at org.codehaus.classworlds.Launcher.main (Launcher.java:47)
+Caused by: org.apache.maven.plugin.MojoExecutionException: Could not build image
+    at com.spotify.plugin.dockerfile.BuildMojo.buildImage (BuildMojo.java:247)
+    at com.spotify.plugin.dockerfile.BuildMojo.execute (BuildMojo.java:135)
+    at com.spotify.plugin.dockerfile.AbstractDockerMojo.tryExecute (AbstractDockerMojo.java:265)
+    at com.spotify.plugin.dockerfile.AbstractDockerMojo.execute (AbstractDockerMojo.java:254)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+    at org.codehaus.classworlds.Launcher.main (Launcher.java:47)
+Caused by: com.spotify.docker.client.exceptions.DockerException: java.io.IOException: Cannot run program "docker-credential-secretservice": error=2, No such file or directory
+
+=======================================================================================================================
+Work-around trying to build the image from the command line doesn't work either:
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/configserver$ docker build -t wjcvanes/configserver:0.0.1-SNAPSHOT .
+Sending build context to Docker daemon  30.51MB
+Step 1/12 : FROM openjdk:11-slim as build
+ ---> 1a70900cdaaa
+Step 2/12 : LABEL maintainer="Illary Huaylupo <illaryhs@gmail.com>"
+ ---> Using cache
+ ---> c97172d1407d
+Step 3/12 : ARG JAR_FILE
+ ---> Using cache
+ ---> 071842e0ef25
+Step 4/12 : COPY ${JAR_FILE} app.jar
+ ---> 37676f04e40c
+Step 5/12 : RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
+ ---> Running in 0c3f2814c7e9
+java.io.FileNotFoundException: /app.jar (Is a directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112)
+	at jdk.jartool/sun.tools.jar.Main.run(Main.java:407)
+	at jdk.jartool/sun.tools.jar.Main.main(Main.java:1681)
+The command '/bin/sh -c mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)' returned a non-zero code: 1
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/configserver$ cd ../licensing-service/
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/licensing-service$ docker build -t wjcvanes/licensing-service:0.0.2-SNAPSHOT .
+Sending build context to Docker daemon  48.19MB
+Step 1/12 : FROM openjdk:11-slim as build
+ ---> 1a70900cdaaa
+Step 2/12 : LABEL maintainer="Illary Huaylupo <illaryhs@gmail.com>"
+ ---> Using cache
+ ---> c97172d1407d
+Step 3/12 : ARG JAR_FILE
+ ---> Using cache
+ ---> 071842e0ef25
+Step 4/12 : COPY ${JAR_FILE} app.jar
+ ---> c7f63b266dd4
+Step 5/12 : RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
+ ---> Running in 3d850970104c
+java.io.FileNotFoundException: /app.jar (Is a directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112)
+	at jdk.jartool/sun.tools.jar.Main.run(Main.java:407)
+	at jdk.jartool/sun.tools.jar.Main.main(Main.java:1681)
+The command '/bin/sh -c mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)' returned a non-zero code: 1
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/licensing-service$
+
+Cannot run program "docker-credential-secretservice": error=2, No such file or directory
+===================================================================================================
+Maybe some of the local docker images are corrupted and need to removed and freshly pulled from their
+repository.
+
+https://stackoverflow.com/questions/50151833/cannot-login-to-docker-account
+
+https://github.com/docker/cli/issues/1136
+
+tip of https://www.programmersought.com/article/83501449301/ not valid for our system the files or dirs to remove
+are NOT available.
+willem@willem-Latitude-5590:/usr/bin$ sudo ls -la | grep 'docker'
+-rwxr-xr-x  1 root root     71576864 Apr 10 00:44 docker
+lrwxrwxrwx  1 root root           29 Feb 19 23:08 docker-compose -> /usr/local/bin/docker-compose
+-rwxr-xr-x  1 root root    116385704 Apr 10 00:44 dockerd
+-rwxr-xr-x  1 root root        13348 Apr 10 00:44 dockerd-rootless-setuptool.sh
+-rwxr-xr-x  1 root root         4079 Apr 10 00:44 dockerd-rootless.sh
+-rwxr-xr-x  1 root root       708616 Apr 10 00:44 docker-init
+-rwxr-xr-x  1 root root      3748040 Apr 10 00:44 docker-proxy
+-rwxr-xr-x  1 root root      9524432 Apr 10 00:44 rootlesskit-docker-proxy
+willem@willem-Latitude-5590:/usr/bin$ cd /usr/local/bin
+willem@willem-Latitude-5590:/usr/local/bin$ sudo ls -la | grep 'docker'
+-rwxr-xr-x  1 root root 12209016 Feb 19 22:54 docker-compose
+willem@willem-Latitude-5590:/usr/local/bin$
+
+To Be Continued

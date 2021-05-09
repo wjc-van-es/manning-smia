@@ -1,0 +1,92 @@
+1)  fixed ipv4 addresses added to the bridge network 'backend' for each service as an alternative for the aliases
+    when we were still trying to find the problem connecting to the postgres database container from another container.
+    This appeared to be due to a mistake in the port assumed to be available. For the external host this is 5400, but
+    from another container it's the same 5432 the postgres container sees itself internally.
+    See also /home/willem/resources/git/manning-smia/chapter5/ProblemConnectingToPostgresContainer.txt for details.
+
+2)  Changing the way volumes are managed for the postgres database service
+managing postgres_container_volume
+The way the volume is managed in chapter5/docker/docker-compose.yml is that with each
+~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+a new volume (dir) is created under /var/lib/docker/volumes with a random 64 character long hexadecimal id/name for the
+postgres database data.
+We should specify a name for this volume instead. This would prevent the sql init scripts running the next time we
+create a container from the image with docker-compose up, because the explicitly named volume would already be there and would be reused.
+In many cases this is preferable and if you would like to start from scratch, because you have changes in the database schema
+and want to rerun modified int sql scripts just remove the volume with
+$ docker volume remove {volume_name}
+
+There remain 2 random volumes for the copying in of ./init.sql to /docker-entrypoint-initdb.d/1-init.sql and
+./data.sql to /docker-entrypoint-initdb.d/2-data.sql
+
+Each docker-compose up execution 2 more volumes with random 64 character long hexadecimal id/name
+These appear to be linked to the internal Tomcat server instances associated with the configserver and the
+licensingservice respectively. I don't know how to reuse these by giving them a name as these volumes are not explicitly
+configured in our docker-compose.yml or in the Dockerfile of either service. These are probably either inherited from
+the openjdk:11-slim image or it's a configuration of Spring Boot (packaging the Tomcat server with the service project).
+    ----
+For now we want to easily remove all the volumes except for smia-ch5-postgres-volume
+tinkering a bit with docker volume ls and grep we find:
+
+# simply showing all volumes
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
+DRIVER    VOLUME NAME
+local     74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+local     bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+local     docker_smia-ch5-postgres-volume
+
+# hiding the smia-ch5-postgres-volume we do NOT want to remove:
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -v 'smia-ch5-postgres-volume'
+DRIVER    VOLUME NAME
+local     74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+local     bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# If we want to combine this result with removes we need to get rid of the header as well grep -E specifies the use of
+# regex so we can use an or in the expression '|' to add a string that will match with the header
+# So this filters out the header and smia-ch5-postgres-volume
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume'
+local     74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+local     bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# Now finally we need to remove the first field 'local' from the result to yield only the id's of the volume
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}'
+74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# Now combine this with docker volume rm
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume rm $(docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}')
+74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# checking only smia-ch5-postgres-volume remains
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
+DRIVER    VOLUME NAME
+local     docker_smia-ch5-postgres-volume
+willem@willem-Latitude-5590:/var/lib/docker/volumes$
+========================================================================================================================
+2)  We do not want the com.optimagrowth.license.model.License#comment field to be overwritten by example.property from
+config server
+We therefore did the following
+2.1)    rename example.property in the configserver properties files to ostock.environment
+2.2)    adjust com.optimagrowth.license.config.ServiceConfig of licensing-service accordingly
+2.3)    add a new @Transient field to the JPA entity com.optimagrowth.license.model.License#environment
+2.4)    com.optimagrowth.license.model.License.withComment(String comment) was changed to
+        com.optimagrowth.license.model.License.(String environment) where the parameter is used to set environment instead
+        of comment
+2.5)    com.optimagrowth.license.service.LicenseService methods would call
+        license.withEnvironment(config.getEnvironment()); instead of the previous license.withComment(config.getProperty());
+
+let's see what happens when we run
+mvn clean package dockerfile:build -e
+followed by
+~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+We run into trouble again see ~/resources/git/manning-smia/chapter5/ProblemRunningDockerfile:build.txt
+========================================================================================================================
+
+willem@willem-Latitude-5590:~$ history | grep 'docker.*-v '
+ 1323  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1
+ 1326  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1
+ 1330  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1
+ 1957  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1-slim
+ 1999  history | grep 'docker.*-v '
+willem@willem-Latitude-5590:~$

@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Configuration
-@ConfigurationProperties(prefix = "example")
+@ConfigurationProperties(prefix = "ostock")
 @Getter @Setter
 public class ServiceConfig{
 
-  private String property;
+  private String environment;
     
 }

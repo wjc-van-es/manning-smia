@@ -28,20 +28,21 @@ public class LicenseService {
 		if (null == license) {
 			throw new IllegalArgumentException(String.format(messages.getMessage("license.search.error.message", null, null),licenseId, organizationId));	
 		}
-		return license.withComment(config.getProperty());
+
+		return license.withEnvironment(config.getEnvironment());
 	}
 
 	public License createLicense(License license){
 		license.setLicenseId(UUID.randomUUID().toString());
 		licenseRepository.save(license);
 
-		return license.withComment(config.getProperty());
+		return license.withEnvironment(config.getEnvironment());
 	}
 
 	public License updateLicense(License license){
 		licenseRepository.save(license);
 
-		return license.withComment(config.getProperty());
+		return license.withEnvironment(config.getEnvironment());
 	}
 
 	public String deleteLicense(String licenseId){
