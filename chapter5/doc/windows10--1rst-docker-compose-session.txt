@@ -1,0 +1,351 @@
+Microsoft Windows [Version 10.0.19041.928]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\A141185\git\manning-smia\chapter5>docker-compose docker\docker-compose-yml up
+No such command: docker\docker_compose_yml
+
+Commands:
+  build              Build or rebuild services
+  config             Validate and view the Compose file
+  create             Create services
+  down               Stop and remove resources
+  events             Receive real time events from containers
+  exec               Execute a command in a running container
+  help               Get help on a command
+  images             List images
+  kill               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port for a port binding
+  ps                 List containers
+  pull               Pull service images
+  push               Push service images
+  restart            Restart services
+  rm                 Remove stopped containers
+  run                Run a one-off command
+  scale              Set number of containers for a service
+  start              Start services
+  stop               Stop services
+  top                Display the running processes
+  unpause            Unpause services
+  up                 Create and start containers
+  version            Show version information and quit
+
+Docker Compose is now in the Docker CLI, try `docker compose`
+
+C:\Users\A141185\git\manning-smia\chapter5>docker compose docker\docker-compose-yml up
+Docker Compose
+
+Usage:
+  docker compose [command]
+
+Available Commands:
+  build       Build or rebuild services
+  convert     Converts the compose file to platform's canonical format
+  create      Creates containers for a service.
+  down        Stop and remove containers, networks
+  events      Receive real time events from containers.
+  exec        Execute a command in a running container.
+  kill        Force stop service containers.
+  logs        View output from containers
+  ls          List running compose projects
+  pause       pause services
+  port        Print the public port for a port binding.
+  ps          List containers
+  pull        Pull service images
+  push        Push service images
+  restart     Restart containers
+  rm          Removes stopped service containers
+  run         Run a one-off command on a service.
+  start       Start services
+  stop        Stop services
+  top         Display the running processes
+  unpause     unpause services
+  up          Create and start containers
+
+Flags:
+      --ansi string                Control when to print ANSI control characters ("never"|"always"|"auto") (default "auto")
+      --env-file string            Specify an alternate environment file.
+  -f, --file stringArray           Compose configuration files
+  -h, --help                       help for compose
+      --profile stringArray        Specify a profile to enable
+      --project-directory string   Specify an alternate working directory
+                                   (default: the path of the Compose file)
+  -p, --project-name string        Project name
+
+Use "docker compose [command] --help" for more information about a command.
+
+We cannot offer a docker-compose.yml file in a subdir on a windows command prompt, so:
+
+C:\Users\A141185\git\manning-smia\chapter5>cd docker
+
+C:\Users\A141185\git\manning-smia\chapter5\docker>docker-compose up
+Docker Compose is now in the Docker CLI, try `docker compose up`
+
+Creating network "docker_backend" with driver "bridge"
+Creating volume "docker_smia-ch5-postgres-volume" with default driver
+Pulling database (postgres:latest)...
+latest: Pulling from library/postgres
+f7ec5a41d630: Already exists
+d073cd070242: Pulling fs layer
+03790957a916: Pulling fs layer
+b3776ac15dab: Pulling fs layer
+7144fd00aec4: Waiting
+54f6491bd120: Waiting
+247ab23c6036: Waiting
+57800498c536: Waiting
+bcb15a4d14f4: Waiting
+cfc751ecbc6e: Waiting
+bbf042afd4a4: Waiting
+453056a20de6: Waiting
+d5b1a75378ef: Waiting
+7841e2074775: Waiting
+b3776ac15dab: Downloading [========================>                          ]  703.5kB/1.419MB
+7144fd00aec4: Downloading [>                                                  ]  81.89kB/7.965MB
+54f6491bd120: Waiting
+247ab23c6036: Waiting
+57800498c536: Waiting
+bcb15a4d14f4: Waiting
+cfc751ecbc6e: Waiting
+bbf042afd4a4: Waiting
+453056a20de6: Waiting
+d5b1a75378ef: Waiting
+7841e2074775: Waiting
+d073cd070242: Downloading [==========>                                        ]  862.6kB/4.179MB
+03790957a916: Download complete
+b3776ac15dab: Downloading [===========================>                       ]  785.4kB/1.419MB
+7144fd00aec4: Downloading [==>                                                ]    417kB/7.965MB
+54f6491bd120: Waiting
+247ab23c6036: Waiting
+57800498c536: Waiting
+bcb15a4d14f4: Waiting
+cfc751ecbc6e: Waiting
+bbf042afd4a4: Waiting
+453056a20de6: Waiting
+d5b1a75378ef: Waiting
+7841e2074775: Waiting
+b3776ac15dab: Downloading [======================================>            ]  1.097MB/1.419MB
+7144fd00aec4: Downloading [===>                                               ]  580.8kB/7.965MB
+54f6491bd120: Waiting
+247ab23c6036: Waiting
+57800498c536: Waiting
+bcb15a4d14f4: Waiting
+cfc751ecbc6e: Waiting
+bbf042afd4a4: Waiting
+453056a20de6: Waiting
+d5b1a75378ef: Waiting
+7841e2074775: Waiting
+b3776ac15dab: Downloading [===========================================>       ]  1.244MB/1.419MB
+7144fd00aec4: Downloading [=====>                                             ]  826.6kB/7.965MB
+54f6491bd120: Waiting
+247ab23c6036: Waiting
+57800498c536: Waiting
+bcb15a4d14f4: Waiting
+cfc751ecbc6e: Waiting
+bbf042afd4a4: Waiting
+453056a20de6: Waiting
+d5b1a75378ef: Waiting
+7841e2074775: Waiting
+b3776ac15dab: Download complete
+7144fd00aec4: Downloading [======>                                            ]  1.072MB/7.965MB
+54f6491bd120: Waiting
+247ab23c6036: Waiting
+57800498c536: Waiting
+bcb15a4d14f4: Waiting
+cfc751ecbc6e: Waiting
+bbf042afd4a4: Waiting
+453056a20de6: Waiting
+d5b1a75378ef: Waiting
+7841e2074775: Waiting
+d073cd070242: Downloading [======================>                            ]  1.895MB/4.179MB
+03790957a916: Download complete
+b3776ac15dab: Download complete
+7144fd00aec4: Pull complete
+54f6491bd120: Pull complete
+247ab23c6036: Pull complete
+57800498c536: Pull complete
+bcb15a4d14f4: Pull complete
+cfc751ecbc6e: Pull complete
+bbf042afd4a4: Pull complete
+453056a20de6: Pull complete
+d5b1a75378ef: Pull complete
+7841e2074775: Pull complete
+Digest: sha256:61d5d8ef6cb4e2035f053f26b6b455c201a809354084cc8426b6904b8dd35602
+Status: Downloaded newer image for postgres:latest
+Creating docker_database_1     ... done
+Creating docker_configserver_1 ... done
+Creating docker_licensingservice_1 ... done
+Attaching to docker_configserver_1, docker_database_1, docker_licensingservice_1
+configserver_1      |
+configserver_1      |   .   ____          _            __ _ _
+configserver_1      |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+configserver_1      | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+configserver_1      |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+configserver_1      |   '  |____| .__|_| |_|_| |_\__, | / / / /
+configserver_1      |  =========|_|==============|___/=/_/_/_/
+configserver_1      |  :: Spring Boot ::        (v2.2.3.RELEASE)
+configserver_1      |
+configserver_1      | 2021-05-09 16:42:27.027  INFO 1 --- [           main] c.o.c.ConfigurationServerApplication     : The following profiles are active: native
+configserver_1      | 2021-05-09 16:42:29.403  INFO 1 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=4a0cd2d0-fe15-3c1b-abdf-ae973a21bc40
+configserver_1      | 2021-05-09 16:42:30.216  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8071 (http)
+configserver_1      | 2021-05-09 16:42:30.237  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+configserver_1      | 2021-05-09 16:42:30.238  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+configserver_1      | 2021-05-09 16:42:30.486  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+configserver_1      | 2021-05-09 16:42:30.486  INFO 1 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3406 ms
+configserver_1      | 2021-05-09 16:42:31.373  INFO 1 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+configserver_1      | 2021-05-09 16:42:32.516  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoint(s) beneath base path '/actuator'
+configserver_1      | 2021-05-09 16:42:32.712  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8071 (http) with context path ''
+configserver_1      | 2021-05-09 16:42:32.724  INFO 1 --- [           main] c.o.c.ConfigurationServerApplication     : Started ConfigurationServerApplication in 9.754 seconds (JVM runn
+ing for 11.268)
+database_1          | The files belonging to this database system will be owned by user "postgres".
+database_1          | This user must also own the server process.
+database_1          |
+database_1          | The database cluster will be initialized with locale "en_US.utf8".
+database_1          | The default database encoding has accordingly been set to "UTF8".
+database_1          | The default text search configuration will be set to "english".
+database_1          |
+database_1          | Data page checksums are disabled.
+database_1          |
+database_1          | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+database_1          | creating subdirectories ... ok
+database_1          | selecting dynamic shared memory implementation ... posix
+database_1          | selecting default max_connections ... 100
+database_1          | selecting default shared_buffers ... 128MB
+database_1          | selecting default time zone ... Etc/UTC
+database_1          | creating configuration files ... ok
+database_1          | running bootstrap script ... ok
+database_1          | performing post-bootstrap initialization ... ok
+database_1          | syncing data to disk ... initdb: warning: enabling "trust" authentication for local connections
+database_1          | You can change this by editing pg_hba.conf or using the option -A, or
+database_1          | --auth-local and --auth-host, the next time you run initdb.
+database_1          | ok
+database_1          |
+database_1          |
+database_1          | Success. You can now start the database server using:
+database_1          |
+database_1          |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+database_1          |
+database_1          | waiting for server to start....2021-05-09 16:42:26.498 UTC [48] LOG:  starting PostgreSQL 13.2 (Debian 13.2-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (
+Debian 8.3.0-6) 8.3.0, 64-bit
+database_1          | 2021-05-09 16:42:26.514 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+database_1          | 2021-05-09 16:42:26.553 UTC [49] LOG:  database system was shut down at 2021-05-09 16:42:25 UTC
+database_1          | 2021-05-09 16:42:26.567 UTC [48] LOG:  database system is ready to accept connections
+database_1          |  done
+database_1          | server started
+database_1          | CREATE DATABASE
+database_1          |
+database_1          |
+database_1          | /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/1-init.sql
+database_1          | CREATE TABLE
+database_1          | ALTER TABLE
+database_1          | CREATE TABLE
+database_1          | ALTER TABLE
+database_1          |
+database_1          |
+database_1          | /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/2-data.sql
+database_1          | INSERT 0 1
+database_1          | INSERT 0 1
+database_1          | INSERT 0 1
+database_1          | INSERT 0 1
+database_1          | INSERT 0 1
+database_1          |
+database_1          |
+database_1          | waiting for server to shut down....2021-05-09 16:42:27.961 UTC [48] LOG:  received fast shutdown request
+database_1          | 2021-05-09 16:42:27.995 UTC [48] LOG:  aborting any active transactions
+database_1          | 2021-05-09 16:42:27.999 UTC [48] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+database_1          | 2021-05-09 16:42:28.004 UTC [50] LOG:  shutting down
+database_1          | 2021-05-09 16:42:28.238 UTC [48] LOG:  database system is shut down
+database_1          |  done
+database_1          | server stopped
+database_1          |
+database_1          | PostgreSQL init process complete; ready for start up.
+database_1          |
+database_1          | 2021-05-09 16:42:28.349 UTC [1] LOG:  starting PostgreSQL 13.2 (Debian 13.2-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+database_1          | 2021-05-09 16:42:28.350 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+database_1          | 2021-05-09 16:42:28.351 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+database_1          | 2021-05-09 16:42:28.368 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+database_1          | 2021-05-09 16:42:28.382 UTC [94] LOG:  database system was shut down at 2021-05-09 16:42:28 UTC
+database_1          | 2021-05-09 16:42:28.402 UTC [1] LOG:  database system is ready to accept connections
+licensingservice_1  |
+licensingservice_1  |   .   ____          _            __ _ _
+licensingservice_1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+licensingservice_1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+licensingservice_1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+licensingservice_1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+licensingservice_1  |  =========|_|==============|___/=/_/_/_/
+licensingservice_1  |  :: Spring Boot ::        (v2.2.3.RELEASE)
+licensingservice_1  |
+licensingservice_1  | 2021-05-09 16:42:39.041  INFO 1 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://configserver:8071
+configserver_1      | 2021-05-09 16:42:39.372  INFO 1 --- [nio-8071-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+configserver_1      | 2021-05-09 16:42:39.374  INFO 1 --- [nio-8071-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+configserver_1      | 2021-05-09 16:42:39.395  INFO 1 --- [nio-8071-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 20 ms
+configserver_1      | 2021-05-09 16:42:39.587  INFO 1 --- [nio-8071-exec-1] o.s.c.c.s.e.NativeEnvironmentRepository  : Adding property source: classpath:/config/licensing-service-dev.p
+roperties
+configserver_1      | 2021-05-09 16:42:39.587  INFO 1 --- [nio-8071-exec-1] o.s.c.c.s.e.NativeEnvironmentRepository  : Adding property source: classpath:/config/licensing-service.prope
+rties
+licensingservice_1  | 2021-05-09 16:42:39.795  INFO 1 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=licensing-service, profiles=[dev], labe
+l=null, version=null, state=null
+licensingservice_1  | 2021-05-09 16:42:39.798  INFO 1 --- [           main] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstra
+pProperties-classpath:/config/licensing-service-dev.properties'}, BootstrapPropertySource {name='bootstrapProperties-classpath:/config/licensing-service.properties'}]
+licensingservice_1  | 2021-05-09 16:42:39.838  INFO 1 --- [           main] c.o.license.LicenseServiceApplication    : The following profiles are active: dev
+licensingservice_1  | 2021-05-09 16:42:42.108  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+licensingservice_1  | 2021-05-09 16:42:42.230  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 103ms. Found 1 JPA re
+pository interfaces.
+licensingservice_1  | 2021-05-09 16:42:42.712  INFO 1 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=baa64816-a477-347c-b5ec-c824b8dbf672
+licensingservice_1  | 2021-05-09 16:42:43.089  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransaction
+ManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (f
+or example: not eligible for auto-proxying)
+licensingservice_1  | 2021-05-09 16:42:43.638  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+licensingservice_1  | 2021-05-09 16:42:43.657  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+licensingservice_1  | 2021-05-09 16:42:43.658  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+licensingservice_1  | 2021-05-09 16:42:44.292  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+licensingservice_1  | 2021-05-09 16:42:44.292  INFO 1 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4274 ms
+licensingservice_1  | 2021-05-09 16:42:45.645  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+licensingservice_1  | 2021-05-09 16:42:45.791  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+licensingservice_1  | 2021-05-09 16:42:46.036  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+licensingservice_1  | 2021-05-09 16:42:46.250  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+licensingservice_1  | 2021-05-09 16:42:46.448  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+licensingservice_1  | 2021-05-09 16:42:46.512  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+
+licensingservice_1  | 2021-05-09 16:42:47.993  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engin
+e.transaction.jta.platform.internal.NoJtaPlatform]
+licensingservice_1  | 2021-05-09 16:42:48.008  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'defaul
+t'
+licensingservice_1  | 2021-05-09 16:42:48.646  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, databas
+e queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+licensingservice_1  | 2021-05-09 16:42:49.704  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 19 endpoint(s) beneath base path '/actuator'
+licensingservice_1  | 2021-05-09 16:42:49.882  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+licensingservice_1  | 2021-05-09 16:42:49.895  INFO 1 --- [           main] c.o.license.LicenseServiceApplication    : Started LicenseServiceApplication in 13.932 seconds (JVM running
+for 15.207)
+Gracefully stopping... (press Ctrl+C again to force)
+Stopping docker_licensingservice_1 ... done
+Stopping docker_database_1         ... done
+Stopping docker_configserver_1     ... done
+
+C:\Users\A141185\git\manning-smia\chapter5\docker>
+=======================================================================================================================================================================================
+As a result more images are pulled:
+before docker-compose up
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker image ls
+REPOSITORY                   TAG              IMAGE ID       CREATED         SIZE
+wjcvanes/licensing-service   0.0.2-SNAPSHOT   e532ddbda808   4 minutes ago   469MB
+<none>                       <none>           77d8a3d314c7   4 minutes ago   518MB
+wjcvanes/configserver        0.0.1-SNAPSHOT   e5fa7fd0d9a7   7 minutes ago   452MB
+<none>                       <none>           859e25e53ef1   7 minutes ago   482MB
+openjdk                      11-slim          1a70900cdaaa   2 weeks ago     421MB
+wjcvanes/gsd                 1st-ctr          ce0b8f93ac45   2 months ago    122MB
+--------------------------------------------------------------------------------------
+after docker-compose up
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker image ls
+REPOSITORY                   TAG              IMAGE ID       CREATED          SIZE
+wjcvanes/licensing-service   0.0.2-SNAPSHOT   e532ddbda808   36 minutes ago   469MB
+<none>                       <none>           77d8a3d314c7   36 minutes ago   518MB
+wjcvanes/configserver        0.0.1-SNAPSHOT   e5fa7fd0d9a7   39 minutes ago   452MB
+<none>                       <none>           859e25e53ef1   39 minutes ago   482MB
+openjdk                      11-slim          1a70900cdaaa   2 weeks ago      421MB
+postgres                     latest           26c8bcd8b719   4 weeks ago      314MB
+wjcvanes/gsd                 1st-ctr          ce0b8f93ac45   2 months ago     122MB
+
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)

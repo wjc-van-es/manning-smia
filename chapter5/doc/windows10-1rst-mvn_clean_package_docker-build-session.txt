@@ -1,0 +1,355 @@
+Below is the first execution of
+mvn clean package dockerfile:build -e
+Building two Docker images
+=======================================================================================================================================================================================
+"C:\Program Files\Java\jdk-11.0.9\bin\java.exe" -Dmaven.multiModuleProjectDirectory=C:\Users\A141185\git\manning-smia\chapter5 "-Dmaven.home=C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\plugins\maven\lib\maven3" "-Dclassworlds.conf=C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\plugins\maven\lib\maven3\bin\m2.conf" "-Dmaven.ext.class.path=C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\plugins\maven\lib\maven-event-listener.jar" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\lib\idea_rt.jar=50548:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\plugins\maven\lib\maven3\boot\plexus-classworlds.license" org.codehaus.classworlds.Launcher -Didea.version=2021.1.1 clean package dockerfile:build -e
+[INFO] Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] optimagrowth-parent-pom                                            [pom]
+[INFO] Configuration Server                                               [jar]
+[INFO] License Service                                                    [jar]
+[INFO] 
+[INFO] -----------------< com.optimagrowth:ostock-parent-pom >-----------------
+[INFO] Building optimagrowth-parent-pom 0.0.1-SNAPSHOT                    [1/3]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ ostock-parent-pom ---
+[INFO] 
+[INFO] --- dockerfile-maven-plugin:1.4.13:build (default-cli) @ ostock-parent-pom ---
+[INFO] Skipping execution because 'dockerfile.skip' is set
+[INFO] 
+[INFO] -------------------< com.optimagrowth:configserver >--------------------
+[INFO] Building Configuration Server 0.0.1-SNAPSHOT                       [2/3]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ configserver ---
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ configserver ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ configserver ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\Users\A141185\git\manning-smia\chapter5\configserver\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ configserver ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\A141185\git\manning-smia\chapter5\configserver\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ configserver ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\Users\A141185\git\manning-smia\chapter5\configserver\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ configserver ---
+[INFO] Surefire report directory: C:\Users\A141185\git\manning-smia\chapter5\configserver\target\surefire-reports
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/2.22.2/surefire-junit-platform-2.22.2.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/2.22.2/surefire-junit-platform-2.22.2.pom (7.0 kB at 12 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/2.22.2/surefire-providers-2.22.2.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/2.22.2/surefire-providers-2.22.2.pom (2.5 kB at 25 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.pom (2.2 kB at 41 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.pom (1.2 kB at 23 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.pom (2.4 kB at 37 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.pom (2.0 kB at 33 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.pom (1.7 kB at 34 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/2.22.2/surefire-junit-platform-2.22.2.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/2.22.2/surefire-junit-platform-2.22.2.jar (66 kB at 207 kB/s)
+[IJ]-19-ARTIFACT_DOWNLOADED-[IJ]-path=C:\Users\A141185\.m2\repository\org\apache\maven\surefire\surefire-junit-platform\2.22.2\surefire-junit-platform-2.22.2.jar-[IJ]-artifactCoord=org.apache.maven.surefire:surefire-junit-platform:jar:2.22.2-[IJ]-error=
+[IJ]-19-ARTIFACT_DOWNLOADING-[IJ]-path=-[IJ]-artifactCoord=org.opentest4j:opentest4j:jar:1.1.1-[IJ]-error=
+Downloading from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar (2.2 kB at 4.6 kB/s)
+[IJ]-16-ARTIFACT_DOWNLOADED-[IJ]-path=C:\Users\A141185\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar-[IJ]-artifactCoord=org.apiguardian:apiguardian-api:jar:1.0.0-[IJ]-error=
+[IJ]-16-ARTIFACT_RESOLVED-[IJ]-path=C:\Users\A141185\.m2\repository\org\apache\maven\surefire\surefire-api\2.22.2\surefire-api-2.22.2.jar-[IJ]-artifactCoord=org.apache.maven.surefire:surefire-api:jar:2.22.2-[IJ]-error=
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar (78 kB at 152 kB/s)
+P[IJ]-17-ARTIFACT_RESOLVED-[IJ]-path=C:\Users\A141185\.m2\repository\org\junit\platform\junit-platform-commons\1.3.1\junit-platform-commons-1.3.1.jar-[IJ]-artifactCoord=org.junit.platform:junit-platform-commons:jar:1.3.1-[IJ]-error=
+[IJ]-16-ARTIFACT_RESOLVED-[IJ]-path=C:\Users\A141185\.m2\repository\org\apache\maven\surefire\surefire-logger-api\2.22.2\surefire-logger-api-2.22.2.jar-[IJ]-artifactCoord=org.apache.maven.surefire:surefire-logger-api:jar:2.22.2-[IJ]-error=
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.jar (95 kB at 156 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar (135 kB at 224 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar (7.1 kB at 29 kB/s)
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.optimagrowth.configserver.ConfigurationServerApplicationTests
+18:14:00.001 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+18:14:00.032 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+18:14:00.093 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.optimagrowth.configserver.ConfigurationServerApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+18:14:00.127 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.optimagrowth.configserver.ConfigurationServerApplicationTests], using SpringBootContextLoader
+18:14:00.136 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.optimagrowth.configserver.ConfigurationServerApplicationTests]: class path resource [com/optimagrowth/configserver/ConfigurationServerApplicationTests-context.xml] does not exist
+18:14:00.136 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.optimagrowth.configserver.ConfigurationServerApplicationTests]: class path resource [com/optimagrowth/configserver/ConfigurationServerApplicationTestsContext.groovy] does not exist
+18:14:00.137 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.optimagrowth.configserver.ConfigurationServerApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:14:00.139 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.optimagrowth.configserver.ConfigurationServerApplicationTests]: ConfigurationServerApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:14:00.221 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.optimagrowth.configserver.ConfigurationServerApplicationTests]
+18:14:00.389 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\Users\A141185\git\manning-smia\chapter5\configserver\target\classes\com\optimagrowth\configserver\ConfigurationServerApplication.class]
+18:14:00.394 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.optimagrowth.configserver.ConfigurationServerApplication for test class com.optimagrowth.configserver.ConfigurationServerApplicationTests
+18:14:00.645 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.optimagrowth.configserver.ConfigurationServerApplicationTests]: using defaults.
+18:14:00.647 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+18:14:00.670 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+18:14:00.671 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+18:14:00.673 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ceb80a1, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4b45dcb8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7216fb24, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2072acb2, org.springframework.test.context.support.DirtiesContextTestExecutionListener@50ecde95, org.springframework.test.context.event.EventPublishingTestExecutionListener@35a9782c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@70a36a66, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@45815ffc, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@732f29af, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@d3957fe, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6622fc65]
+18:14:00.683 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@3a393455 testClass = ConfigurationServerApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@13518f37 testClass = ConfigurationServerApplicationTests, locations = '{}', classes = '{class com.optimagrowth.configserver.ConfigurationServerApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5852c06f, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@76b07f29, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@35b74c5c, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4b2c5e02], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+18:14:00.748 [main] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.3.RELEASE)
+
+2021-05-09 18:14:04.529  INFO 13496 --- [           main] .o.c.ConfigurationServerApplicationTests : The following profiles are active: native
+2021-05-09 18:14:06.644  INFO 13496 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7e7fae7c-5d8a-36da-b5e7-480227564231
+2021-05-09 18:14:08.196  INFO 13496 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-09 18:14:12.132  INFO 13496 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoint(s) beneath base path '/actuator'
+2021-05-09 18:14:12.324  INFO 13496 --- [           main] .o.c.ConfigurationServerApplicationTests : Started ConfigurationServerApplicationTests in 11.549 seconds (JVM running for 13.749)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.528 s - in com.optimagrowth.configserver.ConfigurationServerApplicationTests
+2021-05-09 18:14:13.515  INFO 13496 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-jar-plugin:3.1.2:jar (default-jar) @ configserver ---
+[INFO] Building jar: C:\Users\A141185\git\manning-smia\chapter5\configserver\target\configserver-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.2.3.RELEASE:repackage (repackage) @ configserver ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- dockerfile-maven-plugin:1.4.13:build (default-cli) @ configserver ---
+[INFO] dockerfile: null
+[INFO] contextDirectory: C:\Users\A141185\git\manning-smia\chapter5\configserver
+[INFO] Building Docker context C:\Users\A141185\git\manning-smia\chapter5\configserver
+[INFO] Path(dockerfile): null
+[INFO] Path(contextDirectory): C:\Users\A141185\git\manning-smia\chapter5\configserver
+[INFO] 
+[INFO] Image will be built as wjcvanes/configserver:0.0.1-SNAPSHOT
+[INFO] 
+[INFO] Step 1/12 : FROM openjdk:11-slim as build
+[INFO] 
+[INFO] Pulling from library/openjdk
+[INFO] Image f7ec5a41d630: Pulling fs layer
+[INFO] Image faf4c47c8c61: Pulling fs layer
+[INFO] Image 810072571faf: Pulling fs layer
+[INFO] Image 6d1d0f05f719: Pulling fs layer
+[INFO] Image 6d1d0f05f719: Waiting
+[INFO] Image faf4c47c8c61: Downloading
+[INFO] Image 810072571faf: Downloading
+[INFO] Image 810072571faf: Verifying Checksum
+[INFO] Image 810072571faf: Download complete
+[INFO] Image f7ec5a41d630: Downloading
+[INFO] Image 6d1d0f05f719: Downloading
+[INFO] Image faf4c47c8c61: Download complete
+[INFO] Image f7ec5a41d630: Download complete
+[INFO] Image f7ec5a41d630: Extracting
+[INFO] Image f7ec5a41d630: Pull complete
+[INFO] Image faf4c47c8c61: Extracting
+[INFO] Image faf4c47c8c61: Pull complete
+[INFO] Image 810072571faf: Extracting
+[INFO] Image 810072571faf: Pull complete
+[INFO] Image 6d1d0f05f719: Verifying Checksum
+[INFO] Image 6d1d0f05f719: Download complete
+[INFO] Image 6d1d0f05f719: Extracting
+[INFO] Image 6d1d0f05f719: Pull complete
+[INFO] Digest: sha256:378ecd06d9796e8fd2618358f2f94abe136ae88236f5dd104bfa936dc5e971ab
+[INFO] Status: Downloaded newer image for openjdk:11-slim
+[INFO]  ---> 1a70900cdaaa
+[INFO] Step 2/12 : LABEL maintainer="Illary Huaylupo <illaryhs@gmail.com>"
+[INFO] 
+[INFO]  ---> Running in 73b463737ca0
+[INFO] Removing intermediate container 73b463737ca0
+[INFO]  ---> 840bcf923ca7
+[INFO] Step 3/12 : ARG JAR_FILE
+[INFO] 
+[INFO]  ---> Running in fdbec197abfd
+[INFO] Removing intermediate container fdbec197abfd
+[INFO]  ---> eeb72528eee0
+[INFO] Step 4/12 : COPY ${JAR_FILE} app.jar
+[INFO] 
+[INFO]  ---> 0edec3fc7add
+[INFO] Step 5/12 : RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
+[INFO] 
+[INFO]  ---> Running in 3cf5948ea4b8
+[INFO] Removing intermediate container 3cf5948ea4b8
+[INFO]  ---> 859e25e53ef1
+[INFO] Step 6/12 : FROM openjdk:11-slim
+[INFO] 
+[INFO] Pulling from library/openjdk
+[INFO] Digest: sha256:378ecd06d9796e8fd2618358f2f94abe136ae88236f5dd104bfa936dc5e971ab
+[INFO] Status: Image is up to date for openjdk:11-slim
+[INFO]  ---> 1a70900cdaaa
+[INFO] Step 7/12 : VOLUME /tmp
+[INFO] 
+[INFO]  ---> Running in f46023f8fbcf
+[INFO] Removing intermediate container f46023f8fbcf
+[INFO]  ---> deff131a6389
+[INFO] Step 8/12 : ARG DEPENDENCY=/target/dependency
+[INFO] 
+[INFO]  ---> Running in 9c67e8342b39
+[INFO] Removing intermediate container 9c67e8342b39
+[INFO]  ---> b4a8e0b06f91
+[INFO] Step 9/12 : COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+[INFO] 
+[INFO]  ---> b49d36815a29
+[INFO] Step 10/12 : COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+[INFO] 
+[INFO]  ---> b3e3e3c5d0bb
+[INFO] Step 11/12 : COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+[INFO] 
+[INFO]  ---> aa6256d06055
+[INFO] Step 12/12 : ENTRYPOINT ["java","-cp","app:app/lib/*","com.optimagrowth.configserver.ConfigurationServerApplication"]
+[INFO] 
+[INFO]  ---> Running in 6103d66d6e48
+[INFO] Removing intermediate container 6103d66d6e48
+[INFO]  ---> e5fa7fd0d9a7
+[INFO] Successfully built e5fa7fd0d9a7
+[INFO] Successfully tagged wjcvanes/configserver:0.0.1-SNAPSHOT
+[INFO] 
+[INFO] Detected build of image with id e5fa7fd0d9a7
+[INFO] Building jar: C:\Users\A141185\git\manning-smia\chapter5\configserver\target\configserver-0.0.1-SNAPSHOT-docker-info.jar
+[INFO] Successfully built wjcvanes/configserver:0.0.1-SNAPSHOT
+[INFO] 
+[INFO] -----------------< com.optimagrowth:licensing-service >-----------------
+[INFO] Building License Service 0.0.2-SNAPSHOT                            [3/3]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ licensing-service ---
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ licensing-service ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ licensing-service ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 12 source files to C:\Users\A141185\git\manning-smia\chapter5\licensing-service\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ licensing-service ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\A141185\git\manning-smia\chapter5\licensing-service\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ licensing-service ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\Users\A141185\git\manning-smia\chapter5\licensing-service\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ licensing-service ---
+[INFO] Surefire report directory: C:\Users\A141185\git\manning-smia\chapter5\licensing-service\target\surefire-reports
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-jar-plugin:3.1.2:jar (default-jar) @ licensing-service ---
+[INFO] Building jar: C:\Users\A141185\git\manning-smia\chapter5\licensing-service\target\licensing-service-0.0.2-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.2.3.RELEASE:repackage (repackage) @ licensing-service ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- dockerfile-maven-plugin:1.4.13:build (default-cli) @ licensing-service ---
+[INFO] dockerfile: null
+[INFO] contextDirectory: C:\Users\A141185\git\manning-smia\chapter5\licensing-service
+[INFO] Building Docker context C:\Users\A141185\git\manning-smia\chapter5\licensing-service
+[INFO] Path(dockerfile): null
+[INFO] Path(contextDirectory): C:\Users\A141185\git\manning-smia\chapter5\licensing-service
+[INFO] 
+[INFO] Image will be built as wjcvanes/licensing-service:0.0.2-SNAPSHOT
+[INFO] 
+[INFO] Step 1/12 : FROM openjdk:11-slim as build
+[INFO] 
+[INFO] Pulling from library/openjdk
+[INFO] Digest: sha256:378ecd06d9796e8fd2618358f2f94abe136ae88236f5dd104bfa936dc5e971ab
+[INFO] Status: Image is up to date for openjdk:11-slim
+[INFO]  ---> 1a70900cdaaa
+[INFO] Step 2/12 : LABEL maintainer="Illary Huaylupo <illaryhs@gmail.com>"
+[INFO] 
+[INFO]  ---> Using cache
+[INFO]  ---> 840bcf923ca7
+[INFO] Step 3/12 : ARG JAR_FILE
+[INFO] 
+[INFO]  ---> Using cache
+[INFO]  ---> eeb72528eee0
+[INFO] Step 4/12 : COPY ${JAR_FILE} app.jar
+[INFO] 
+[INFO]  ---> 21ff9edbebbc
+[INFO] Step 5/12 : RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
+[INFO] 
+[INFO]  ---> Running in 90428186479c
+[INFO] Removing intermediate container 90428186479c
+[INFO]  ---> 77d8a3d314c7
+[INFO] Step 6/12 : FROM openjdk:11-slim
+[INFO] 
+[INFO] Pulling from library/openjdk
+[INFO] Digest: sha256:378ecd06d9796e8fd2618358f2f94abe136ae88236f5dd104bfa936dc5e971ab
+[INFO] Status: Image is up to date for openjdk:11-slim
+[INFO]  ---> 1a70900cdaaa
+[INFO] Step 7/12 : VOLUME /tmp
+[INFO] 
+[INFO]  ---> Using cache
+[INFO]  ---> deff131a6389
+[INFO] Step 8/12 : ARG DEPENDENCY=/target/dependency
+[INFO] 
+[INFO]  ---> Using cache
+[INFO]  ---> b4a8e0b06f91
+[INFO] Step 9/12 : COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+[INFO] 
+[INFO]  ---> f733eb6c2983
+[INFO] Step 10/12 : COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+[INFO] 
+[INFO]  ---> caae1ebadc56
+[INFO] Step 11/12 : COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+[INFO] 
+[INFO]  ---> e0b4f4fbc1c0
+[INFO] Step 12/12 : ENTRYPOINT ["java","-cp","app:app/lib/*","com.optimagrowth.license.LicenseServiceApplication"]
+[INFO] 
+[INFO]  ---> Running in 59137b0a57e8
+[INFO] Removing intermediate container 59137b0a57e8
+[INFO]  ---> e532ddbda808
+[INFO] Successfully built e532ddbda808
+[INFO] Successfully tagged wjcvanes/licensing-service:0.0.2-SNAPSHOT
+[INFO] 
+[INFO] Detected build of image with id e532ddbda808
+[INFO] Building jar: C:\Users\A141185\git\manning-smia\chapter5\licensing-service\target\licensing-service-0.0.2-SNAPSHOT-docker-info.jar
+[INFO] Successfully built wjcvanes/licensing-service:0.0.2-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] optimagrowth-parent-pom 0.0.1-SNAPSHOT ............. SUCCESS [  4.004 s]
+[INFO] Configuration Server 0.0.1-SNAPSHOT ................ SUCCESS [06:51 min]
+[INFO] License Service 0.0.2-SNAPSHOT ..................... SUCCESS [02:56 min]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  09:53 min
+[INFO] Finished at: 2021-05-09T18:23:36+02:00
+[INFO] ------------------------------------------------------------------------
+
+Process finished with exit code 0
+=========================================================================================
+This results in:
+$ docker image ls
+REPOSITORY                   TAG              IMAGE ID       CREATED         SIZE
+wjcvanes/licensing-service   0.0.2-SNAPSHOT   e532ddbda808   4 minutes ago   469MB
+<none>                       <none>           77d8a3d314c7   4 minutes ago   518MB
+wjcvanes/configserver        0.0.1-SNAPSHOT   e5fa7fd0d9a7   7 minutes ago   452MB
+<none>                       <none>           859e25e53ef1   7 minutes ago   482MB
+openjdk                      11-slim          1a70900cdaaa   2 weeks ago     421MB
+wjcvanes/gsd                 1st-ctr          ce0b8f93ac45   2 months ago    122MB
+

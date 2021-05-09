@@ -1,0 +1,75 @@
+Everything works as designed
+We could do a git clone, mvn clean package dockerfile:build -e and docker-compose up
+Although the latter should be executed from C:\Users\A141185\git\manning-smia\chapter5\docker> when in a windows terminal
+
+We probably got the image pulling problem on our linux machine exposed because their was a new version of openjdk 11-slim
+We probably had the login problem already before yesterday (Saturday 8 May 2021).
+
+Most Docker commands were done in Git Bash windows, but can be done from windows command prompts as well.
+We could change and add records from DBeaver, they would be instantly visible from the license-service and would have
+been persistent after a docker-compose down followed by a new docker-compose up
+------------------------------------------------------------------------------
+Volumes could be removed excepting our smia-ch5-postgres-volume with a little linux bash magic from a Git Bash Window:
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker-compose down
+Stopping docker_licensingservice_1 ...
+Stopping docker_database_1         ...
+Stopping docker_configserver_1     ...
+Stopping docker_licensingservice_1 ... done
+Stopping docker_configserver_1     ... done
+Stopping docker_database_1         ... done
+Removing docker_licensingservice_1 ...
+Removing docker_database_1         ...
+Removing docker_configserver_1     ...
+Removing docker_licensingservice_1 ... done
+Removing docker_database_1         ... done
+Removing docker_configserver_1     ... done
+Removing network docker_backend
+
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     1c8fee96768e39cc299c28a480ee36e535efd29e08c3cd0d3825f474d14cdfb6
+local     8e70a6ff55b44f3ab1fff8269898a1f11e72396ed62f0f9abea819557b07846e
+local     d8aa7bce04a897793aff5c6ea5c8843cf3f3d4d476dac595496b79f50c1ecc2a
+local     docker_smia-ch5-postgres-volume
+local     e5481cf5d44a83d420df2911c2eb9229e20f6a06e2b94e65cad35b9e71306ef1
+
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}'
+1c8fee96768e39cc299c28a480ee36e535efd29e08c3cd0d3825f474d14cdfb6
+8e70a6ff55b44f3ab1fff8269898a1f11e72396ed62f0f9abea819557b07846e
+d8aa7bce04a897793aff5c6ea5c8843cf3f3d4d476dac595496b79f50c1ecc2a
+e5481cf5d44a83d420df2911c2eb9229e20f6a06e2b94e65cad35b9e71306ef1
+
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker volume rm $(docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}')
+1c8fee96768e39cc299c28a480ee36e535efd29e08c3cd0d3825f474d14cdfb6
+8e70a6ff55b44f3ab1fff8269898a1f11e72396ed62f0f9abea819557b07846e
+d8aa7bce04a897793aff5c6ea5c8843cf3f3d4d476dac595496b79f50c1ecc2a
+e5481cf5d44a83d420df2911c2eb9229e20f6a06e2b94e65cad35b9e71306ef1
+
+WW930+A141185@DESKTOP-F8Q3LT6 MINGW64 ~/git/manning-smia/chapter5/docker (master)
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     docker_smia-ch5-postgres-volume
+
+======================================================================================================================
+Microsoft Windows [Version 10.0.19041.928]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\A141185>docker --version
+Docker version 20.10.5, build 55c4c88
+
+C:\Users\A141185>docker login
+Authenticating with existing credentials...
+Login Succeeded
+
+C:\Users\A141185>docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\A141185>docker image ls
+REPOSITORY     TAG       IMAGE ID       CREATED        SIZE
+wjcvanes/gsd   1st-ctr   ce0b8f93ac45   2 months ago   122MB
+
+C:\Users\A141185>
