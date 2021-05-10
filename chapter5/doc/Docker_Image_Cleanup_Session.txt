@@ -1,0 +1,524 @@
+# seeing all locally stored images:
+willem@willem-Latitude-5590:~$ docker image ls
+REPOSITORY                         TAG              IMAGE ID       CREATED        SIZE
+wjcvanes/licensing-service         0.0.2-SNAPSHOT   e0d53941cd14   2 hours ago    469MB
+<none>                             <none>           ee3fb803eaac   2 hours ago    518MB
+wjcvanes/configserver              0.0.1-SNAPSHOT   4f88e9988f22   2 hours ago    452MB
+<none>                             <none>           f41019618517   2 hours ago    482MB
+<none>                             <none>           c7f63b266dd4   46 hours ago   470MB
+<none>                             <none>           37676f04e40c   46 hours ago   452MB
+<none>                             <none>           62575cb53efd   9 days ago     518MB
+<none>                             <none>           9c8198fc3682   9 days ago     452MB
+<none>                             <none>           46e421e0dbee   9 days ago     482MB
+<none>                             <none>           997ef68328f3   9 days ago     518MB
+<none>                             <none>           984f08f2f472   9 days ago     452MB
+<none>                             <none>           20a3061a0e02   9 days ago     482MB
+<none>                             <none>           0f7b0dcc564b   9 days ago     518MB
+<none>                             <none>           d09d18ce8d29   9 days ago     482MB
+<none>                             <none>           0e31a4a5d42f   9 days ago     518MB
+<none>                             <none>           30e5bab32256   9 days ago     482MB
+<none>                             <none>           59f28045a6c4   9 days ago     518MB
+<none>                             <none>           7f96474fe4ae   9 days ago     452MB
+<none>                             <none>           9ab872681116   9 days ago     482MB
+<none>                             <none>           0ebf561015c9   9 days ago     518MB
+<none>                             <none>           1636b53d4948   9 days ago     452MB
+<none>                             <none>           c052428de818   9 days ago     482MB
+<none>                             <none>           e3063df2b4e5   9 days ago     518MB
+<none>                             <none>           462931c7889b   9 days ago     452MB
+<none>                             <none>           6613115b78ef   9 days ago     482MB
+<none>                             <none>           21b43ed417f8   9 days ago     518MB
+<none>                             <none>           b4c40c2cc7f0   9 days ago     452MB
+<none>                             <none>           a81e147f00b0   9 days ago     482MB
+<none>                             <none>           c7fff62432c6   10 days ago    518MB
+<none>                             <none>           486c4854d3c8   10 days ago    452MB
+<none>                             <none>           ab956452f966   10 days ago    482MB
+<none>                             <none>           f4fd37d846db   12 days ago    518MB
+<none>                             <none>           8ef9eb35658b   12 days ago    452MB
+<none>                             <none>           434636ce79ce   12 days ago    482MB
+<none>                             <none>           921ec4d3e0b2   12 days ago    518MB
+<none>                             <none>           da47ee94683a   12 days ago    452MB
+<none>                             <none>           db58342470c0   12 days ago    482MB
+<none>                             <none>           a2fb43eae020   12 days ago    518MB
+<none>                             <none>           c03938737dce   12 days ago    452MB
+<none>                             <none>           d6b4d258392d   12 days ago    482MB
+<none>                             <none>           782b338cdda0   13 days ago    518MB
+<none>                             <none>           960895c08190   13 days ago    452MB
+<none>                             <none>           e587feb1016f   13 days ago    482MB
+<none>                             <none>           37194c878d95   2 weeks ago    469MB
+<none>                             <none>           9694c415bd0f   2 weeks ago    518MB
+<none>                             <none>           413db56a4f77   2 weeks ago    452MB
+<none>                             <none>           c0d800897f9d   2 weeks ago    482MB
+openjdk                            11-slim          1a70900cdaaa   2 weeks ago    421MB
+<none>                             <none>           c162597a4b8e   3 weeks ago    465MB
+wjcvanes/licensing-service         0.0.1-SNAPSHOT   c803a3426074   4 weeks ago    443MB
+<none>                             <none>           aa65e3beedbb   4 weeks ago    465MB
+postgres                           latest           26c8bcd8b719   4 weeks ago    314MB
+openjdk                            <none>           b4517d9514cb   4 weeks ago    421MB
+multi-container_web-fe             latest           64f71f8bf40b   4 weeks ago    56.2MB
+redis                              alpine           f7cdff500577   5 weeks ago    32.3MB
+wjcvanes/gsd                       swarm-stack      5f4311d9c1b3   2 months ago   56.2MB
+<none>                             <none>           1d82a8d631c6   2 months ago   56.2MB
+python                             alpine           770dd9c7c0e8   2 months ago   44.7MB
+wjcvanes/gsd                       1st-ctr          ce0b8f93ac45   2 months ago   122MB
+store/oracle/database-enterprise   12.2.0.1         12a359cd0528   3 years ago    3.44GB
+store/oracle/database-enterprise   12.2.0.1-slim    27c9559d36ec   3 years ago    2.08GB
+willem@willem-Latitude-5590:~$ 
+# 63 records
+# We want to remove all images except 
+# postgres:latest, 
+# openjdk:11-slim and 
+# store/oracle/database-enterprise:12.2.0.1-slim
+
+
+# Filtering out the header row and the following image rows:
+# postgres:latest, openjdk:11-slim and store/oracle/database-enterprise:12.2.0.1-slim
+willem@willem-Latitude-5590:~$ docker image ls | grep -Ev 'REPOSITORY|postgres|11-slim|12.2.0.1-slim'
+
+# to just see the IMAGE ID field (the 3rd field)
+willem@willem-Latitude-5590:~$ docker image ls | grep -Ev 'REPOSITORY|postgres|11-slim|12.2.0.1-slim' | awk '{print $3}'
+
+# We can remove an image with $ docker image rm {repository_name}:tag or {image id} optionally multiple ones
+# We could add the option: --no-prune		which prevents deleting untagged parents
+# alternatively docker rmi can be used
+
+$ docker rmi --no-prune $(docker image ls | grep -Ev 'REPOSITORY|postgres|11-slim|12.2.0.1-slim' | awk '{print $3}')
+
+=============================================================================================================================
+Session Monday, May 10 2021:
+willem@willem-Latitude-5590:~$ docker rmi --no-prune $(docker image ls | grep -Ev 'REPOSITORY|postgres|11-slim|12.2.0.1-slim' | awk '{print $3}')
+Untagged: wjcvanes/licensing-service:0.0.2-SNAPSHOT
+Deleted: sha256:e0d53941cd14c831346cc59e6615e1dff8cfaf4e46791bab6481855f40828715
+Deleted: sha256:ee3fb803eaac5068de9eb1f5a255e7cd0ec45a13bb8d864b695b1cb53daa4aec
+Deleted: sha256:32e54fd4f227fe8cedf2759e45472e840334623863baa26737f0460899a6f8ee
+Untagged: wjcvanes/configserver:0.0.1-SNAPSHOT
+Deleted: sha256:4f88e9988f22e43b613189b21d431a654d14d54f9f6bffb027e8fe9c185f68f4
+Deleted: sha256:f410196185174f6441cafc024ad4a34e97f26d724bc3d43f1cbba56fa76ef3a5
+Deleted: sha256:7ebac583896510d4cd26b9f3a9073ec98e31603c0d8a968ebc356af5583fc155
+Deleted: sha256:62575cb53efd16accc1139d3d6189c5659cbaad9d7fb07645cd8509205dad3db
+Deleted: sha256:c4d9a9620535895e799b034594877d8245a81fdab3a9912260f664643ae5dec3
+Deleted: sha256:9c8198fc368262534adfded95943c9a819c03ab3e2d5e308a0fd632e2800d6ff
+Deleted: sha256:46e421e0dbee7321e515fbb8e076820f563a242739f6c6d2a7b4c71e5e37b212
+Deleted: sha256:3ad5f15e3cef48b1466fcb6ab50608e5d09a2a1c3a0a350a00503bd4c55aa55d
+Deleted: sha256:997ef68328f3fca7fb042786cae17ca95e208c93c8b94f84308e94aacd3557ac
+Deleted: sha256:7837e7c07b713fef55a9cccaa9695ea14cfb930e44eedd441b4bd677c54906c0
+Deleted: sha256:984f08f2f47228f224541216fc49bc4b56c1aece356c0979c5c849c10088cc1c
+Deleted: sha256:20a3061a0e0226fa6fb10fc1e271efbf8d5dc99d80ca67e2acce520ec333ce5a
+Deleted: sha256:ad1eae274a9266b30fa6e6ae146d50ef724332ed4a27bc0335fff9848017d9b3
+Deleted: sha256:0f7b0dcc564b497cd630db73e26925ab576674f5d74d917d1dd1533d7c554ee6
+Deleted: sha256:7adbe83643ab4aee1aa3337462a38234adeb2796777f116fd6a8b73d893198de
+Deleted: sha256:d09d18ce8d299c9d4c14f52a1cf4465b9b0bb5ccf8c2ab25085a45717d7d6fff
+Deleted: sha256:4b1b402bba3c64f262589f80e4be6054e3ebdda2a8049db51c61a8a32249d5ca
+Deleted: sha256:0e31a4a5d42fbc52b62996bed1bc01b0e3fc2abf5a1aff3cc84c0040b1c1514a
+Deleted: sha256:47aa3a520051269fc8d22b8014ce93a411648492e71a0415e7d2ad8db6ccf1a4
+Deleted: sha256:30e5bab3225661890b466bb3af8227ffef7ecb006e2407ae75d38616d9283839
+Deleted: sha256:5477c29c2ae310b62db09d86cd38c7be52bd1007e8f4bcaf7da97901b4662a04
+Deleted: sha256:59f28045a6c4f0a4e22e86fdd8cf7e709813e14b02beb81d23ce81dd3f6d7d9a
+Deleted: sha256:07bc1d3fca8096cd83d8cc9c751eba5eeb741c510080428f56c76d2804585a3e
+Deleted: sha256:7f96474fe4aeddffa71a79702fb9f4ddbea228c040148668ba23f6f8ff479658
+Deleted: sha256:9ab872681116a519f2dca11ed6d86a4de25cdbd2ad433d245dfe43590696ad1a
+Deleted: sha256:80015ec71fcd5e54d796aa327e3dbfcebb783bc50f1ce3dcf3d562636f0fa492
+Deleted: sha256:0ebf561015c985bc2a205028c28d8d40c40cf94a31db09df35fae4da54a60eee
+Deleted: sha256:17a9f63fc44be769acf95b52c3a2cdf2b2a8931778e14211ed95f4942d5937b2
+Deleted: sha256:1636b53d4948d2ebf2973005f2f311a62fecde3a079b085a7dc63255a57bf929
+Deleted: sha256:c052428de818628503f9a7e179e680163129fe5c24f8af73158a6b2387146cb0
+Deleted: sha256:a4102ad849ad3ffceb60610cb32aafc552ccad40e0cebde113d50f826aec08ec
+Deleted: sha256:e3063df2b4e5693d8b2836926a1a7a61416ee722cc1733d4497a09ba6e040bb6
+Deleted: sha256:8e13659e5fff8d5008958fe95949b39ffa81828e4f1dca93834c65fce722f15e
+Deleted: sha256:462931c7889b2febcbfc27d5b8242a069da4e0074397d9d2363c1793abf808b9
+Deleted: sha256:6613115b78ef54c5c3ae8ae784da41b359ebc33acbb729dbe0925863beb37ad2
+Deleted: sha256:d5bcd884626fc9e44ed265fd4fb106ca7e0067fe7cac36a86329dd284c4db5aa
+Deleted: sha256:21b43ed417f8d6170bad23a2faa7f2e45d03ed60f6688cbc990b674fbb3b0e69
+Deleted: sha256:bab64361191b94d579d290dafd311810976939ee82981d9326476fab805365b0
+Deleted: sha256:b4c40c2cc7f0d0e8bb4c063d5f76cb26c6f76b5df247fd9c060e92ef86f3ac35
+Deleted: sha256:a81e147f00b0f9e5972dc7d095caa0347ea21f3be67a171faf6e7c440fef632c
+Deleted: sha256:e2ee1baf5fd0b007e74429382925d40a9d0edd412265dd3077033736685fdfe9
+Deleted: sha256:c7fff62432c6269715187d8cb35f07fea8cf1e8e6d884193ad388bb1c3e529de
+Deleted: sha256:10890d3ed2e6f33409368ac48af27b7301dbbb852375cbb54e8983f8ea994d35
+Deleted: sha256:486c4854d3c8e417484279c5ec79bc067d778aa6b9a7cec46e0696eef621f901
+Deleted: sha256:ab956452f966938007ca9e67e3cb045f0cc0689f38b7612c645b44e20caa1512
+Deleted: sha256:b69a776a173a181af71714ce2da7331feabbe69592aa09ed5da8b338cdda1641
+Deleted: sha256:f4fd37d846db106f9f9c445c951fa8a56a2890314465bc72e18febb299958ded
+Deleted: sha256:5a296b6060ef2d1cd723d488bb95d0d4b5e2ff2cdb3ab85a25d983dc3ea772ba
+Deleted: sha256:8ef9eb35658bcb51dfd12d676db73c57a144d4e1d7a41ce04b22f22a50351f25
+Deleted: sha256:434636ce79ce2df3e29ae8d26e860146170b639dd0d6222e9ea7ae24950cb02a
+Deleted: sha256:2acdd95ea994da579424ca364a61dbc48f82293d9830fcc6d98cee2011490155
+Deleted: sha256:921ec4d3e0b281c9f3cd7fe426794b14f5534a08826aa71039fa208405a37efa
+Deleted: sha256:62e9a85c72367600201eceba8fba4af18b21f268332235eb79c249c4fbaadb84
+Deleted: sha256:da47ee94683afaf9f651369de1c9ec01820c204ae5c6c18655b7154924dc03ad
+Deleted: sha256:db58342470c0ff2c44160a8bc7d4619ff109dde8d9fda80015a3116ed5fa22a8
+Deleted: sha256:92223b0c8336a436b491b4541456f1cc2942859e79edc20bd5b643e88fa21531
+Deleted: sha256:a2fb43eae020ad828aba24a59145501c4fad528c1e107f380c12d10f08b499db
+Deleted: sha256:260cb6b57f7cbef05d379edbadba94f0d0830b7edb65eea755c4d5a6d5923d62
+Deleted: sha256:c03938737dcea95d878f902520d56474014b85de04aa07dd3d12776a6268a869
+Deleted: sha256:d6b4d258392d09fa45057c67743c1c22dfdb87f9c1ab7a7ba41322ffe0e4fec2
+Deleted: sha256:3eb32d2aa71468ec3eef5bf5059d2713cbe564b6557719a0196587599e806857
+Deleted: sha256:782b338cdda0805d56b3386ab91525066da9daf1afcbf24b7d8aa164039f5f23
+Deleted: sha256:c834bd1cf343af88c69f305d1b984879124388bd400c7a4ceac51eea68d963b2
+Deleted: sha256:960895c081903c47249405d3e03023dbaa7ec292d4507a0e49d35f5c53f4e437
+Deleted: sha256:e587feb1016f2b396903154d62bc9d1b16c108c95cc3822eceff54fa7dd4a078
+Deleted: sha256:b3e678c67c4753a57e66c7fc77423f413621878ffb68482f377a9d0ce88c487f
+Deleted: sha256:37194c878d95da8673ad04e778e682287f57fd9f6022cdf46dfe557000501a72
+Deleted: sha256:9694c415bd0f571ebe1158ec47bcda1e1ae752efaa70649acd25b6c60e3465d6
+Deleted: sha256:f8dda4da3fae45d4a124d855454ced3bec692e92db1722a88bc0c667be9aabef
+Deleted: sha256:413db56a4f7740dec73ccfee048b72a250086d39237d960d598736607d36bc04
+Deleted: sha256:c0d800897f9d14ac5a70af9c6dbc6fc5f6f58f5b26da684889ea711075bc3995
+Deleted: sha256:36e407cf1f04bfb612ba61eb2d9186411c790aac173bbb19c97639b85433543a
+Deleted: sha256:c162597a4b8e2f4bb6e7b55c719e77c337fd0af013b927c6fe41aa9475baf5f0
+Deleted: sha256:f3754b6bf817397082c469e06e5f3cb4cdf31f4fd2a848336ad06e4944fc959a
+Untagged: wjcvanes/licensing-service:0.0.1-SNAPSHOT
+Untagged: wjcvanes/licensing-service@sha256:0c1b7b0235998e77fb158eaff81f3b76f4376b6c348b664855cb018734d05532
+Deleted: sha256:c803a342607420d395599f32eaa16911a14ad7420f2300ab1926d64f4d4d6b3e
+Deleted: sha256:aa65e3beedbb77e4eddbf8e9fb0a80ec91e5618def340cef618e639ccfc2edb9
+Deleted: sha256:8035c3939de7c16403bcbad9db5af293064ab314632ce478775cdd5e3275d692
+Untagged: multi-container_web-fe:latest
+Deleted: sha256:64f71f8bf40b99ba2320177cfaa708a7e0f0c5f17d3aec05e97e9b7679d66561
+Untagged: redis:alpine
+Untagged: redis@sha256:142f857eb675a6a817dff1ae4d2138fc0228db596db2849ad1c38023a9dea7a4
+Deleted: sha256:f7cdff5005773dd1b5765a8d59b4bd821ad550d2cf3703d44d1617baf05a5e4a
+Deleted: sha256:f66684d5bafe1a9ac1145fdb65cc4da93d04307d7737225664b56421f2d19462
+Deleted: sha256:2df42e34699444d325ec1f6e033224104fd05e05cf766edc37fae55f4f78dc2e
+Deleted: sha256:38ee5f1ba1bc827bda8c0bffb8cc8175edecf636dee53a64dc1a61e10c3ed991
+Deleted: sha256:b7d90b67f3b970d34dfe374327e5b80987f356ba7417094fc5e176919f6e2406
+Deleted: sha256:525ded2704068bce09cf6bfc1a40d4b76e3dc43602cafd3b51a7bf018f80df28
+Deleted: sha256:8ea3b23f387bedc5e3cee574742d748941443c328a75f511eb37b0d8b6164130
+Untagged: wjcvanes/gsd:swarm-stack
+Untagged: wjcvanes/gsd@sha256:c7ed6eed09a689e9f76db1d5041c8e4c0357707aca68a74835c45d1ad020b928
+Deleted: sha256:5f4311d9c1b34efc7f02c428a3ba86ce28a3bf10b07e3f141cbe25d75984678b
+Deleted: sha256:1d82a8d631c6236bf4675ea81249f8c6db8b3abcd5fade43c67921ce6afac2dd
+Untagged: wjcvanes/gsd:1st-ctr
+Untagged: wjcvanes/gsd@sha256:6f78eeb97688f6e91d25d923d3ff3be18360e96e9e6ca49cd826019879cf5bfc
+Deleted: sha256:ce0b8f93ac4558dd73e88744eb90ab87574c628c7ed53760167987155bb00bd2
+Deleted: sha256:94290c1a0df699318dc10c11aad86af893618b7738dcd7c3daff219ba2aecf91
+Deleted: sha256:446ca1698600bb4aa48fbcbb417095c7a05b086e1c21757d8f3dd23f769c9454
+Deleted: sha256:e281affe79af455c5a7a204ff0149e8339a506c0604772182a94af7ce3d212ce
+Deleted: sha256:3cc2610c30764b549412d103b6e62a50437cbdae10138900cc72dd080d0a94a9
+Deleted: sha256:0ba3672a13119cd780ea91e8c610d2bff16ec6e5bf87efc3084491bffdd888d8
+Deleted: sha256:359a7e40546bc727268cd415bd6dbc3234b2fbb94b6da4c24e812ab40612e045
+Deleted: sha256:d107fd533e46dd194e8b4d8128c60c9f421a6db00faf5a599b17ee01609af321
+Deleted: sha256:0fcbbeeeb0d7fc5c06362d7a6717b999e605574c7210eff4f7418f6e9be9fbfe
+Untagged: store/oracle/database-enterprise:12.2.0.1
+Untagged: store/oracle/database-enterprise@sha256:40760ac70dba2c4c70d0c542e42e082e8b04d9040d91688d63f728af764a2f5d
+Deleted: sha256:12a359cd052828523d9e7479673c26c4c9c23cc628d7a4e7210ea7deae4994d7
+Deleted: sha256:bc16e2558dc899249b179e8d6f68f9a6d071d90d70e336b3a1b9cd9ad95967a0
+Error response from daemon: conflict: unable to delete c7f63b266dd4 (must be forced) - image is being used by stopped container 3d850970104c
+Error response from daemon: conflict: unable to delete 37676f04e40c (must be forced) - image is being used by stopped container 0c3f2814c7e9
+Error response from daemon: conflict: unable to delete b4517d9514cb (cannot be forced) - image has dependent child images
+Error response from daemon: conflict: unable to delete 770dd9c7c0e8 (cannot be forced) - image has dependent child images
+willem@willem-Latitude-5590:~$ docker ps -a
+CONTAINER ID   IMAGE                                            COMMAND                  CREATED        STATUS                      PORTS     NAMES
+3d850970104c   c7f63b266dd4                                     "/bin/sh -c 'mkdir -…"   46 hours ago   Exited (1) 46 hours ago               lucid_morse
+0c3f2814c7e9   37676f04e40c                                     "/bin/sh -c 'mkdir -…"   46 hours ago   Exited (1) 46 hours ago               tender_pare
+2ee5275f03dc   store/oracle/database-enterprise:12.2.0.1-slim   "/bin/sh -c '/bin/ba…"   8 days ago     Exited (137) 45 hours ago             oracle
+# I am not sure where lucid_morse and tender_pare come from, these sound like random names maybe connected to tomcat containers????
+# removing both containers:
+willem@willem-Latitude-5590:~$ docker rm 3d850970104c 0c3f2814c7e9
+3d850970104c
+0c3f2814c7e9
+willem@willem-Latitude-5590:~$ docker ps -a
+CONTAINER ID   IMAGE                                            COMMAND                  CREATED      STATUS                      PORTS     NAMES
+2ee5275f03dc   store/oracle/database-enterprise:12.2.0.1-slim   "/bin/sh -c '/bin/ba…"   8 days ago   Exited (137) 45 hours ago             oracle
+
+willem@willem-Latitude-5590:~$ docker image ls
+REPOSITORY                         TAG             IMAGE ID       CREATED        SIZE
+<none>                             <none>          a50869d35cf9   2 hours ago    469MB
+<none>                             <none>          49f518adbd90   2 hours ago    470MB
+<none>                             <none>          298353d1f691   2 hours ago    452MB
+<none>                             <none>          a43b2af61305   2 hours ago    452MB
+<none>                             <none>          c7f63b266dd4   46 hours ago   470MB
+<none>                             <none>          37676f04e40c   46 hours ago   452MB
+<none>                             <none>          faa23c23fd7a   9 days ago     470MB
+<none>                             <none>          918b520495a0   9 days ago     452MB
+<none>                             <none>          f86e351de90d   9 days ago     452MB
+<none>                             <none>          421546efd234   9 days ago     470MB
+<none>                             <none>          7cc9264a2dc9   9 days ago     452MB
+<none>                             <none>          cab56d44cb52   9 days ago     452MB
+<none>                             <none>          1b62eba2af88   9 days ago     470MB
+<none>                             <none>          151f7ec3b22e   9 days ago     452MB
+<none>                             <none>          d1d76ce3b576   9 days ago     470MB
+<none>                             <none>          01484ff1db26   9 days ago     452MB
+<none>                             <none>          5e7fa23b9cca   9 days ago     470MB
+<none>                             <none>          8825d18c6733   9 days ago     452MB
+<none>                             <none>          0f6be4bf957c   9 days ago     452MB
+<none>                             <none>          fd6effae7868   10 days ago    470MB
+<none>                             <none>          4c9e6020eb4c   10 days ago    452MB
+<none>                             <none>          2a2a47c2e375   10 days ago    452MB
+<none>                             <none>          6486ce67a7bf   10 days ago    470MB
+<none>                             <none>          2d1073d7774c   10 days ago    452MB
+<none>                             <none>          12bc9333c63d   10 days ago    452MB
+<none>                             <none>          8f17c81ea11b   10 days ago    470MB
+<none>                             <none>          38fa7fbfc1c6   10 days ago    452MB
+<none>                             <none>          2b5f98adf372   10 days ago    452MB
+<none>                             <none>          8746a1bd0ec9   10 days ago    470MB
+<none>                             <none>          e8a7edf6601e   10 days ago    452MB
+<none>                             <none>          ff7604758b14   10 days ago    452MB
+<none>                             <none>          32167d854770   12 days ago    470MB
+<none>                             <none>          a8a62667f5bb   12 days ago    452MB
+<none>                             <none>          69901bd2f04e   12 days ago    452MB
+<none>                             <none>          9103afa3768b   12 days ago    470MB
+<none>                             <none>          1aae19b7c40b   12 days ago    452MB
+<none>                             <none>          476795998dd7   12 days ago    452MB
+<none>                             <none>          54231b8a64e1   12 days ago    470MB
+<none>                             <none>          d795f6829828   12 days ago    452MB
+<none>                             <none>          ee1d05b0a12f   12 days ago    452MB
+<none>                             <none>          b7f92ea5198b   13 days ago    470MB
+<none>                             <none>          24ad1a895b3e   13 days ago    452MB
+<none>                             <none>          9a34fb6a8fd1   13 days ago    452MB
+<none>                             <none>          9197473b7d84   2 weeks ago    469MB
+<none>                             <none>          8c257137d3fb   2 weeks ago    470MB
+<none>                             <none>          69c8c2bbc605   2 weeks ago    452MB
+<none>                             <none>          4898a037bcc1   2 weeks ago    452MB
+openjdk                            11-slim         1a70900cdaaa   2 weeks ago    421MB
+<none>                             <none>          8cdfcdefa02a   3 weeks ago    443MB
+<none>                             <none>          06ff489c5372   4 weeks ago    443MB
+<none>                             <none>          cc2e64fc5373   4 weeks ago    443MB
+postgres                           latest          26c8bcd8b719   4 weeks ago    314MB
+openjdk                            <none>          b4517d9514cb   4 weeks ago    421MB
+<none>                             <none>          4e793f9b209f   4 weeks ago    56.2MB
+<none>                             <none>          60406a02f764   2 months ago   56.2MB
+<none>                             <none>          79266bd8ef75   2 months ago   56.2MB
+python                             alpine          770dd9c7c0e8   2 months ago   44.7MB
+store/oracle/database-enterprise   12.2.0.1-slim   27c9559d36ec   3 years ago    2.08GB
+
+# I don't know why python:alpine isn't removed, maybe it is a dependency of one of the excluded images, we I removing it any way
+willem@willem-Latitude-5590:~$ docker rmi --force python:alpine
+Untagged: python:alpine
+Untagged: python@sha256:7919c21147955031ba26dd964be5a4066b617c18839e3dc9a04964102087a469
+willem@willem-Latitude-5590:~$ docker image ls
+REPOSITORY                         TAG             IMAGE ID       CREATED        SIZE
+<none>                             <none>          a50869d35cf9   2 hours ago    469MB
+<none>                             <none>          49f518adbd90   2 hours ago    470MB
+<none>                             <none>          298353d1f691   2 hours ago    452MB
+<none>                             <none>          a43b2af61305   2 hours ago    452MB
+<none>                             <none>          c7f63b266dd4   46 hours ago   470MB
+<none>                             <none>          37676f04e40c   46 hours ago   452MB
+<none>                             <none>          faa23c23fd7a   9 days ago     470MB
+<none>                             <none>          918b520495a0   9 days ago     452MB
+<none>                             <none>          f86e351de90d   9 days ago     452MB
+<none>                             <none>          421546efd234   9 days ago     470MB
+<none>                             <none>          7cc9264a2dc9   9 days ago     452MB
+<none>                             <none>          cab56d44cb52   9 days ago     452MB
+<none>                             <none>          1b62eba2af88   9 days ago     470MB
+<none>                             <none>          151f7ec3b22e   9 days ago     452MB
+<none>                             <none>          d1d76ce3b576   9 days ago     470MB
+<none>                             <none>          01484ff1db26   9 days ago     452MB
+<none>                             <none>          5e7fa23b9cca   9 days ago     470MB
+<none>                             <none>          8825d18c6733   9 days ago     452MB
+<none>                             <none>          0f6be4bf957c   9 days ago     452MB
+<none>                             <none>          fd6effae7868   10 days ago    470MB
+<none>                             <none>          4c9e6020eb4c   10 days ago    452MB
+<none>                             <none>          2a2a47c2e375   10 days ago    452MB
+<none>                             <none>          6486ce67a7bf   10 days ago    470MB
+<none>                             <none>          2d1073d7774c   10 days ago    452MB
+<none>                             <none>          12bc9333c63d   10 days ago    452MB
+<none>                             <none>          8f17c81ea11b   10 days ago    470MB
+<none>                             <none>          38fa7fbfc1c6   10 days ago    452MB
+<none>                             <none>          2b5f98adf372   10 days ago    452MB
+<none>                             <none>          8746a1bd0ec9   10 days ago    470MB
+<none>                             <none>          e8a7edf6601e   10 days ago    452MB
+<none>                             <none>          ff7604758b14   10 days ago    452MB
+<none>                             <none>          32167d854770   12 days ago    470MB
+<none>                             <none>          a8a62667f5bb   12 days ago    452MB
+<none>                             <none>          69901bd2f04e   12 days ago    452MB
+<none>                             <none>          9103afa3768b   12 days ago    470MB
+<none>                             <none>          1aae19b7c40b   12 days ago    452MB
+<none>                             <none>          476795998dd7   12 days ago    452MB
+<none>                             <none>          54231b8a64e1   12 days ago    470MB
+<none>                             <none>          d795f6829828   12 days ago    452MB
+<none>                             <none>          ee1d05b0a12f   12 days ago    452MB
+<none>                             <none>          b7f92ea5198b   13 days ago    470MB
+<none>                             <none>          24ad1a895b3e   13 days ago    452MB
+<none>                             <none>          9a34fb6a8fd1   13 days ago    452MB
+<none>                             <none>          9197473b7d84   2 weeks ago    469MB
+<none>                             <none>          8c257137d3fb   2 weeks ago    470MB
+<none>                             <none>          69c8c2bbc605   2 weeks ago    452MB
+<none>                             <none>          4898a037bcc1   2 weeks ago    452MB
+openjdk                            11-slim         1a70900cdaaa   2 weeks ago    421MB
+<none>                             <none>          8cdfcdefa02a   3 weeks ago    443MB
+<none>                             <none>          06ff489c5372   4 weeks ago    443MB
+<none>                             <none>          cc2e64fc5373   4 weeks ago    443MB
+postgres                           latest          26c8bcd8b719   4 weeks ago    314MB
+openjdk                            <none>          b4517d9514cb   4 weeks ago    421MB
+<none>                             <none>          4e793f9b209f   4 weeks ago    56.2MB
+<none>                             <none>          60406a02f764   2 months ago   56.2MB
+<none>                             <none>          79266bd8ef75   2 months ago   56.2MB
+store/oracle/database-enterprise   12.2.0.1-slim   27c9559d36ec   3 years ago    2.08GB
+
+# As we have removed the two mystery containers we can run again
+willem@willem-Latitude-5590:~$ docker rmi --no-prune $(docker image ls | grep -Ev 'REPOSITORY|postgres|11-slim|12.2.0.1-slim' | awk '{print $3}')
+Deleted: sha256:a50869d35cf9d7d52e7d798bf330fbb4e88aecdd382b8d0173edbbfa59de8272
+Deleted: sha256:40bbbcea965044900dba825dd2975cf80e9d0dc69bfeb55da9d3304c7d9f5e17
+Deleted: sha256:49f518adbd90ddd0b497fa7350b15c19ed7ad7d1388c2e31dfa1b49df5f30c45
+Deleted: sha256:103ffcf80ae6ff3e8268129cad3675fdaff1c9f7e53d4c1ffcfedff3b28a90b3
+Deleted: sha256:298353d1f6916379ada07f512981525a23fa964f34da6b3715f8b007f7aa903a
+Deleted: sha256:7b8749cb8f7d52feee346b16c83152275ec701a40c175e43a3be214900752519
+Deleted: sha256:a43b2af6130567d0f914eac2b6b3818073d6579d34d8cf8cfe1fba086e50a54a
+Deleted: sha256:dbbdad08ff88b658c9087a1e6fa4891e42adcf74e1551202996cf9ea77cdfb5e
+Deleted: sha256:c7f63b266dd49003b505c0055ec64423834cf9f428db4966c506c365e0deb830
+Deleted: sha256:6b79d459c9a84cd3f7243216b2b12982485027592ee6fa1b4bad3336dadda2d3
+Deleted: sha256:37676f04e40cfb26b62521c5e5449fec63738db5b8debc988c7a9b12c54092c3
+Deleted: sha256:ee09737e4ef7a140ad0ce5a4a99b0d8c1a3594c2a8c58a9310c0a6d15f834ac0
+Deleted: sha256:faa23c23fd7aff8713e813f70e01ccc018b27177dde94f3a9d41bc1b3ad47ff6
+Deleted: sha256:f9719c1a27c2bf0c3121529e27c9052d79899acfbf98d6bca2faaaa385786b24
+Deleted: sha256:918b520495a03f144677829fac17e58ad0851791f2ad0e6d97443a8884a72818
+Deleted: sha256:ad3b680c53faf234e4a79f456333c58c32dbca65254155199d67b119581a3bf2
+Deleted: sha256:f86e351de90dcedc61109a7b7d721d0d504fd3a9db86bd78fe5d88794e0cfcc6
+Deleted: sha256:df96777eac5833f007dee9ff43348dae9d7bd9ac132e4bb1913947cbea7425da
+Deleted: sha256:421546efd2340c86686e7f79003c54c1375271d137fa73ff7228ab10d7576399
+Deleted: sha256:39a3a6048f5b766ce0636d51d87981b43a452ebf712fdab544ad463026e8d851
+Deleted: sha256:7cc9264a2dc9b36285eaf3470e858d42a9d2b54057853a37e2363049fa9b1fdc
+Deleted: sha256:5fe32350726cdaea630609d8c3453a31fcb645c492b59b3e5a2599d30785a5c2
+Deleted: sha256:cab56d44cb52d3e7f9ffa4cf97df8ff75f29ca4e2bf9e44774e2e0a06bd12c12
+Deleted: sha256:28a93655757bed8818a8b1838a99a087578ec1396a74839ec66e6524ca32c6af
+Deleted: sha256:1b62eba2af886db3d2f833ff26f4ef639f627b168a34f5d37764e1d1c29ccca9
+Deleted: sha256:6fda1b167e1ee6d5bc1c7acf8f540b559e4c8373425f58ff8ea73d7b8280f67c
+Deleted: sha256:151f7ec3b22e710613dba5fd1c18972a935c2bc72d05ea21f1d69c388b467a08
+Deleted: sha256:5634a221e5d51a5397b27c88405761a6e755591820879d2b6a108ab32e199d33
+Deleted: sha256:d1d76ce3b5765af0aac323ea4aa488642d5b0e8ae65ed5f053908fc6d08309a6
+Deleted: sha256:fa804f99d62d7e2e59d33f6d01451a9036613352aee906218bb1565f09749833
+Deleted: sha256:01484ff1db26bb94303e1ded28a1f1bf6a9a59fe09e46e359c8ef9e75071e787
+Deleted: sha256:0768b68e48368a8f6aae0949d4ebb1d5042d67925b48499bedc3e809d89786c2
+Deleted: sha256:5e7fa23b9ccaf7df01cc03f5d576bd958fc4eab9cfd9da9ac6fc652b74feffbd
+Deleted: sha256:554fbcfb4722b4426087d436b9a447a00b2d06758c12001c21c9f3bcc8291028
+Deleted: sha256:8825d18c673301214d8538b318c698e1c5fa3571dd8967d58fb716b38504d8af
+Deleted: sha256:d378d86082b1d7c3cfb8d1a8eb5acaa392da5d03049cb3f63826a6585493ca40
+Deleted: sha256:0f6be4bf957c70c38cbf344ca6cc3fb6a8c7b667e5429c75c9185ea50de5a17c
+Deleted: sha256:208d6f75631661fe17cc20df99ebd8afd10e655207eee58d739e00804026237d
+Deleted: sha256:fd6effae7868652079cc70b734f41f4a5d6d85b44bd3fb09684553f598d5ef27
+Deleted: sha256:c7ec5cda75b394d5d7d02df7b3d08502219de414843f205d69cafaba29e5add1
+Deleted: sha256:4c9e6020eb4cd059da1772807cdbfde51fe0792475fce03f6bfa06c770298021
+Deleted: sha256:4d7170be9684f7662bf2577e696530823fbaec623ea87cf62b96748afaaf8bea
+Deleted: sha256:2a2a47c2e3756e0381f4c90571e370ad2433355a495a1ccfb70abdbb8727483d
+Deleted: sha256:37199fd5018c3764a19f7fa6fcefdc7666b31ddb5ae892a14d361f58acec5288
+Deleted: sha256:6486ce67a7bfb63ab4c366babcc6094ce2e5051ab22cfc1839804cf7bffc35c5
+Deleted: sha256:0347025e9d37f77789566b6d2a4bb72134c9a75479de98325a6f591d97083ee1
+Deleted: sha256:2d1073d7774c55ee8a394b04069e3d00728c481526cc66c3e0e19a76ca80b1e0
+Deleted: sha256:6908836e5bb05f8427bbf8e23fe231aaadef7c3eaaadb8d3b6cde3e8bb6962cb
+Deleted: sha256:12bc9333c63d357ebda85c11030fbf41c8a42048a6015a2d13c8bb1ec6745c16
+Deleted: sha256:356acde2ff3f6f63f09331b9ec02f0f412164e73a0ddd7e51678acaf95190ddc
+Deleted: sha256:8f17c81ea11b5e2029a2d767c5e4f219dcb4b05c481f74c64f2e818bee1f46de
+Deleted: sha256:c3d75e691ceb39deed2627701911a894e5659a3bfaf0e682cee236188d6b20d4
+Deleted: sha256:38fa7fbfc1c6edec2ffa0f0c9935987530be4a01a2c648440728c92b5dd9b029
+Deleted: sha256:35504dead8ce8032acb66ca4dbecf636f23b0b204f62f42fbadd6a997c53b447
+Deleted: sha256:2b5f98adf372737af4467b333c5816c3cfd2978139e457a1b029cacba998440d
+Deleted: sha256:7b750f9edcc4c5fb151919a9a955b3e6741ce7930ff1d65ed857c3f662f47999
+Deleted: sha256:8746a1bd0ec9643bab680882a0bb8f8b061709f0ee5b78f5a3a98a1861e4b46a
+Deleted: sha256:b059fef6ce0e630ab3298981f996f1db9d3f7db5e7798c97c466319b6f55d832
+Deleted: sha256:e8a7edf6601eefde586d4705aafc320717557ce5847fc46d9b621521f681700c
+Deleted: sha256:be5542c82f508a8dc0791c701401b2a3a76f38317832b166e3ad49deec517dac
+Deleted: sha256:ff7604758b143e5b88ae9884b1ea666d03afe41c142f627113d7d68c34c534d0
+Deleted: sha256:cd02b3d9ac7666b792cd80cc4597e50db83d5a0fa60a50a7f071e5b660dff937
+Deleted: sha256:32167d8547707463a7303084c4f9ed0c5acf73d44206a67a2ade77f15351fc45
+Deleted: sha256:d340bcd8647eb6627e766cba84552a58b7b903474b745c3042cf59a27e634177
+Deleted: sha256:a8a62667f5bb1cecdf9dc85cbc7a2339b2e9b2ffe25ab64ac616f3bc2656c2c1
+Deleted: sha256:389f071a334c6c388b85292fa396959269639f77bda89e4432c17b90baa4d801
+Deleted: sha256:69901bd2f04e6fbd2c3c5f4df9ecd37d65edaccae5df388f62173c129727921b
+Deleted: sha256:35604fbd60ef112e15442b73d94b424d737609bb0aa841a469bca50651f8b32a
+Deleted: sha256:9103afa3768b3a7e17e8fead52c87337a9694f2db96c62a810b54277a31675fd
+Deleted: sha256:3c384ef94dda14b303b89a23fb409a34b37259bd0ce2f5fb25fca6ee68ee5500
+Deleted: sha256:1aae19b7c40bc7d8494fc9e3d888bd6775873c578c79c14f2c94268b188b3d51
+Deleted: sha256:2483ca4e60a2d88304c09393730707dfe9fc26f2c693f82374bd8424a18a835c
+Deleted: sha256:476795998dd7dd758de4a44dfd98394df6af75ee4904df440f4a7cd9d0f1ce0f
+Deleted: sha256:57750d0c764d6a91804cb527144dbc3aba43ca6fc27bfb86253c869aee180c82
+Deleted: sha256:54231b8a64e1b29120d59f2510fbeee194212a7fa367e2df08815a79d463ca4c
+Deleted: sha256:3a3e8fd97885e2f873df66783e1b2f5745cc916ac49599492407f9dcc255b6db
+Deleted: sha256:d795f6829828fc9a4999c38c415c5d8b514098b528115cb621c5e441f62d518f
+Deleted: sha256:462eec423bcf31c4d91121a29b8d66f84364d3f5f9c164181f05955475ddd791
+Deleted: sha256:ee1d05b0a12fa89564b638b827b71cb132e3d6b69f87d8592f911c3b7cbc1f09
+Deleted: sha256:ca9c2452b01219d892b4e47c3d363353541e09543bc5eedac009959c72330f03
+Deleted: sha256:b7f92ea5198bb25ef047f3ed76a0115a41e5f80ab130854266f8f43a5005d5e2
+Deleted: sha256:301d1ff8313bb371d937b8bebf0cbfab30bbf78cab79af1485c019998f9b34ce
+Deleted: sha256:24ad1a895b3ee57bd33b5a6f50b98f3bf892e82b0b37649ccb2b473cb047d528
+Deleted: sha256:84c15e03fec688d1eda7c7450367deea74a87bf2c2f5141b36e8faecd0d20994
+Deleted: sha256:9a34fb6a8fd144cffb2149d2ba5c3fe0bca59a46ce75861376204278e541beb1
+Deleted: sha256:aeed0ea988d1c9481eef0781d7b90fc8153f0b0fe716700144b89239cf1f9c21
+Deleted: sha256:9197473b7d84116693df202ca177acda98d391ae9a62a151fea728d4f920eb6e
+Deleted: sha256:858ceeab5b38646b1f36b451583fe15a99b9bc138b01f3db83c6512b2f0b73af
+Deleted: sha256:8c257137d3fb3cd03ca0a24548a3f55d73379bc2852c9cfe967275287f77605c
+Deleted: sha256:e4c64b6dfe279b328bc3f45019cf8d51673441675d71bc7350b51bdfa807286a
+Deleted: sha256:69c8c2bbc6057e9de7c2e3890607ee14e8f50f522ba034345e193376bbb49350
+Deleted: sha256:b63446123fc680979ab67c0aa253f65306dca03055c7617d764befff3041c923
+Deleted: sha256:4898a037bcc1082367f2efa30da7e18d37dd3d88e1c23dd85ca9456269552c0f
+Deleted: sha256:fb4d0517eb01ee8d62811f3012c3b27b4e20d1713834a073fabfa8ef71b95f03
+Deleted: sha256:8cdfcdefa02a7e59bf5c26c3e9cdb1b8259b93fa0ce3f15aed5f00b8ec5c22ff
+Deleted: sha256:40f7cc60ca8f9bb399e890527fbf2b7b0b8d121bc4376ff784142a26e5fac266
+Deleted: sha256:06ff489c537232b4b5aaefbd73a0e459ebe814670a8944975da14e3a2199747c
+Deleted: sha256:92a77f4ac3dd564b5baa16e121ef11eb8f9b5cc32ab6e1fc3d30e8e54f4fc1b3
+Deleted: sha256:cc2e64fc537377438c55086c0484b45566ca74937b81e7ecee713470f4a1783a
+Deleted: sha256:a81ebf0128a8d3d99c5fb0138d5e22c6d832b939ba959a762e19e2af126aea6c
+Deleted: sha256:4e793f9b209f5e5edd42b77c8ca02ad333e31e8a3ee8265b1fd3b585ec022cbb
+Deleted: sha256:a7360ee9d4a8ebda6d5bbef8a0eaca5db52d263ac2e69ed4716a519df302a921
+Deleted: sha256:60406a02f7648e5a836dfbacfb9cc2fca1d607f5b40effb52330a18c1d82ac2c
+Deleted: sha256:c04218b86b5b6516db266fc40d3ed484ef801e42871aa02f4f2415d50073dc1a
+Deleted: sha256:79266bd8ef750340eb28023a64ba26e35d89841672b7506b6db27da4514288e3
+Deleted: sha256:d8fb3696a6fd0a7c4e0c0d4b45237e0b61d12d504b68e6be9a9c8b4c333b24e0
+Error response from daemon: conflict: unable to delete b4517d9514cb (cannot be forced) - image has dependent child images
+
+# This really clears up things 
+willem@willem-Latitude-5590:~$ docker image ls
+REPOSITORY                         TAG             IMAGE ID       CREATED        SIZE
+<none>                             <none>          b27c7016a7da   3 hours ago    469MB
+<none>                             <none>          2e4291d8324c   2 weeks ago    469MB
+<none>                             <none>          9979e8679f1c   2 weeks ago    452MB
+<none>                             <none>          071842e0ef25   2 weeks ago    421MB
+openjdk                            11-slim         1a70900cdaaa   2 weeks ago    421MB
+<none>                             <none>          162e4a8aede9   4 weeks ago    443MB
+<none>                             <none>          9ac580d828e4   4 weeks ago    421MB
+postgres                           latest          26c8bcd8b719   4 weeks ago    314MB
+openjdk                            <none>          b4517d9514cb   4 weeks ago    421MB
+<none>                             <none>          c0aa1b0ae6c9   4 weeks ago    44.7MB
+<none>                             <none>          f8704f976406   2 months ago   44.7MB
+<none>                             <none>          53203e3cb06b   2 months ago   44.7MB
+store/oracle/database-enterprise   12.2.0.1-slim   27c9559d36ec   3 years ago    2.08GB
+willem@willem-Latitude-5590:~$
+# Now Building the project again:
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ mvn clean package dockerfile:build -e
+# Now let's see how many more images there are:
+willem@willem-Latitude-5590:~$ docker image ls
+REPOSITORY                         TAG              IMAGE ID       CREATED              SIZE
+wjcvanes/licensing-service         0.0.2-SNAPSHOT   62bcb0bbf0b4   About a minute ago   469MB
+<none>                             <none>           995e551b0578   About a minute ago   518MB
+wjcvanes/configserver              0.0.1-SNAPSHOT   270cab3b5ec4   About a minute ago   452MB
+<none>                             <none>           c231041c261e   About a minute ago   482MB
+<none>                             <none>           2e4291d8324c   2 weeks ago          469MB
+openjdk                            11-slim          1a70900cdaaa   2 weeks ago          421MB
+<none>                             <none>           162e4a8aede9   4 weeks ago          443MB
+<none>                             <none>           9ac580d828e4   4 weeks ago          421MB
+postgres                           latest           26c8bcd8b719   4 weeks ago          314MB
+openjdk                            <none>           b4517d9514cb   4 weeks ago          421MB
+<none>                             <none>           c0aa1b0ae6c9   4 weeks ago          44.7MB
+<none>                             <none>           f8704f976406   2 months ago         44.7MB
+<none>                             <none>           53203e3cb06b   2 months ago         44.7MB
+store/oracle/database-enterprise   12.2.0.1-slim    27c9559d36ec   3 years ago          2.08GB
+
+# It appears 4 new images where build.
+# Now firing up the containers
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+
+# Checking the containers:
+willem@willem-Latitude-5590:~$ docker ps -a
+CONTAINER ID   IMAGE                                            COMMAND                  CREATED              STATUS                        PORTS                                       NAMES
+82280e4489cd   wjcvanes/licensing-service:0.0.2-SNAPSHOT        "java -cp app:app/li…"   About a minute ago   Up About a minute             0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   docker_licensingservice_1
+1a2558c9d393   postgres:latest                                  "docker-entrypoint.s…"   About a minute ago   Up About a minute (healthy)   0.0.0.0:5400->5432/tcp, :::5400->5432/tcp   docker_database_1
+f0c447e30d81   wjcvanes/configserver:0.0.1-SNAPSHOT             "java -cp app:app/li…"   About a minute ago   Up About a minute             0.0.0.0:8071->8071/tcp, :::8071->8071/tcp   docker_configserver_1
+2ee5275f03dc   store/oracle/database-enterprise:12.2.0.1-slim   "/bin/sh -c '/bin/ba…"   8 days ago           Exited (137) 46 hours ago                                                 oracle
+
+# No mysterious extra containers present and $ docker image ls didn't reveal extra images.
+
+# Shutting down
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/docker$ docker-compose down
+Stopping docker_licensingservice_1 ... done
+Stopping docker_database_1         ... done
+Stopping docker_configserver_1     ... done
+Removing docker_licensingservice_1 ... done
+Removing docker_database_1         ... done
+Removing docker_configserver_1     ... done
+Removing network docker_backend
+
+# This will also remove containers associated with the docker-compose.yml
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/docker$ docker ps -a
+CONTAINER ID   IMAGE                                            COMMAND                  CREATED      STATUS                      PORTS     NAMES
+2ee5275f03dc   store/oracle/database-enterprise:12.2.0.1-slim   "/bin/sh -c '/bin/ba…"   8 days ago   Exited (137) 46 hours ago             oracle
+willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/docker$
+
+
+

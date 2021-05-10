@@ -1,0 +1,38 @@
+For now we want to easily remove all the volumes except for smia-ch5-postgres-volume
+tinkering a bit with docker volume ls and grep we find:
+
+# simply showing all volumes
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
+DRIVER    VOLUME NAME
+local     74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+local     bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+local     docker_smia-ch5-postgres-volume
+
+# hiding the smia-ch5-postgres-volume we do NOT want to remove:
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -v 'smia-ch5-postgres-volume'
+DRIVER    VOLUME NAME
+local     74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+local     bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# If we want to combine this result with removes we need to get rid of the header as well grep -E specifies the use of
+# regex so we can use an or in the expression '|' to add a string that will match with the header
+# So this filters out the header and smia-ch5-postgres-volume
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume'
+local     74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+local     bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# Now finally we need to remove the first field 'local' from the result to yield only the id's of the volume
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}'
+74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# Now combine this with docker volume rm
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume rm $(docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}')
+74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
+bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+# checking only smia-ch5-postgres-volume remains
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
+DRIVER    VOLUME NAME
+local     docker_smia-ch5-postgres-volume
+willem@willem-Latitude-5590:/var/lib/docker/volumes$

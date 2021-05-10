@@ -105,9 +105,31 @@ The command '/bin/sh -c mkdir -p target/dependency && (cd target/dependency; jar
 willem@willem-Latitude-5590:~/resources/git/manning-smia/chapter5/licensing-service$
 
 Cannot run program "docker-credential-secretservice": error=2, No such file or directory
-===================================================================================================
-Maybe some of the local docker images are corrupted and need to removed and freshly pulled from their
-repository.
+========================================================================================================================
+SOLUTION:
+========================================================================================================================
+It appears that the way the credentials to my docker hub account were stored has become corrupted. This is probably due
+to software updates and cleaning it up on Friday 7 May 2021 with
+$ sudo apt autoremove
+This removed among a lot of other stuff:
+Removing python-docker (2.5.1-1) ...
+Removing python-dockerpycreds (0.2.1-1) ...
+Removing golang-docker-credential-helpers (0.5.0-2) ...
+
+Now the configuration inside ~.docker/config.json is no longer valid and attempting
+$ docker login
+with the correct credentials fails anyway.
+
+On https://github.com/docker/for-linux/issues/383 the simple work-around of deleting the config.json followed by another
+$ docker login
+is suggested
+Now this succeeds with the warning that the credentials are stored unencrypted in a new config.json file.
+Building the images from the Dockerfile instances now succeeds with depending images being pulled.
+
+We have to study a more secure solution, but for now this is perfectly acceptable. To be more secure in a crude and
+simple way, we could always remove ~.docker/config.json again, as long as we don't forget to repeat the docker login
+in a next session.
+
 
 https://stackoverflow.com/questions/50151833/cannot-login-to-docker-account
 
@@ -129,4 +151,4 @@ willem@willem-Latitude-5590:/usr/local/bin$ sudo ls -la | grep 'docker'
 -rwxr-xr-x  1 root root 12209016 Feb 19 22:54 docker-compose
 willem@willem-Latitude-5590:/usr/local/bin$
 
-To Be Continued
+
