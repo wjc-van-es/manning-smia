@@ -80,9 +80,27 @@ let's see what happens when we run
 mvn clean package dockerfile:build -e
 followed by
 ~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
-We run into trouble again see ~/resources/git/manning-smia/chapter5/ProblemRunningDockerfile:build.txt
+We run into trouble again see ~/resources/git/manning-smia/chapter5/ProblemRunningDockerfile_build.txt
 ========================================================================================================================
+Wednesday 19 May 2021
+We installed Insomnia to also test create with post requests and updates with put requests
+-------------------------------------------------------------------------------------------------
+https://support.insomnia.rest/article/156-installation
+# Add to sources
+$ echo "deb [trusted=yes arch=amd64] https://download.konghq.com/insomnia-ubuntu/ default all" \
+    | sudo tee -a /etc/apt/sources.list.d/insomnia.list
 
+# Refresh repository sources and install Insomnia
+$ sudo apt-get update
+$ sudo apt-get install insomnia
+-------------------------------------------------------------------------------------------------
+
+3)  Changing create with post to use the organizationId from the path parameter instead of any such attribute
+    inside the post request body
+4)  Changing update with put by adding the licenseId as path parameter and use that instead of any such attribute
+    inside the put request body
+5)  Adding a get all licenses for an organization
+========================================================================================================================
 willem@willem-Latitude-5590:~$ history | grep 'docker.*-v '
  1323  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1
  1326  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1
