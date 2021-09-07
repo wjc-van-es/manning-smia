@@ -26,10 +26,19 @@ willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls | grep -Ev
 74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
 bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
 
+================================================================
+As more volumes from other projects are added with the common naming strategy regex: docker(.)*-volume
+we can find it with
+$ docker volume ls | grep -Ev 'DRIVER|docker(.)*-volume' | awk '{print $2}'
+================================================================
+
 # Now combine this with docker volume rm
-willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume rm $(docker volume ls | grep -Ev 'DRIVER|smia-ch5-postgres-volume' | awk '{print $2}')
+willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume rm $(docker volume ls | grep -Ev 'DRIVER|docker(.)*-volume' | awk '{print $2}')
 74cbe9f5fdaffe4b428325f48d09ba6237412d080a5c7226ae6ff40a427e054a
 bcb538951a49176ec81c306306b1379ffbda2e349655eca874d2045352f7e4ad
+
+==================================================================
+
 
 # checking only smia-ch5-postgres-volume remains
 willem@willem-Latitude-5590:/var/lib/docker/volumes$ docker volume ls
