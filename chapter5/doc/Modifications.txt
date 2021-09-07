@@ -5,16 +5,16 @@
     See also /home/willem/resources/git/manning-smia/chapter5/ProblemConnectingToPostgresContainer.txt for details.
 
 2)  Changing the way volumes are managed for the postgres database service
-managing postgres_container_volume
-The way the volume is managed in chapter5/docker/docker-compose.yml is that with each
-~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
-a new volume (dir) is created under /var/lib/docker/volumes with a random 64 character long hexadecimal id/name for the
-postgres database data.
-We should specify a name for this volume instead. This would prevent the sql init scripts running the next time we
-create a container from the image with docker-compose up, because the explicitly named volume would already be there and would be reused.
-In many cases this is preferable and if you would like to start from scratch, because you have changes in the database schema
-and want to rerun modified int sql scripts just remove the volume with
-$ docker volume remove {volume_name}
+    managing postgres_container_volume
+    The way the volume is managed in chapter5/docker/docker-compose.yml is that with each
+    ~/resources/git/manning-smia/chapter5$ docker-compose -f docker/docker-compose.yml up
+    a new volume (dir) is created under /var/lib/docker/volumes with a random 64 character long hexadecimal id/name for the
+    postgres database data.
+    We should specify a name for this volume instead. This would prevent the sql init scripts running the next time we
+    create a container from the image with docker-compose up, because the explicitly named volume would already be there and would be reused.
+    In many cases this is preferable and if you would like to start from scratch, because you have changes in the database schema
+    and want to rerun modified int sql scripts just remove the volume with
+    $ docker volume remove {volume_name}
 
 There remain 2 random volumes for the copying in of ./init.sql to /docker-entrypoint-initdb.d/1-init.sql and
 ./data.sql to /docker-entrypoint-initdb.d/2-data.sql

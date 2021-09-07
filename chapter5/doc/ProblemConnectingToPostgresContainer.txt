@@ -24,6 +24,9 @@ willem@willem-Latitude-5590:~$ docker node ls
 Error response from daemon: This node is not a swarm manager. Use "docker swarm init" or "docker swarm join" to connect this node to swarm and try again.
 willem@willem-Latitude-5590:~$
 
+==========================================================================================================================
+Below are earlier attempts to fix the problem not too relevant to the ultimate solution described above.
+However, they may reveal some extra knowledge
 ===========================================================================================================================
 Tuesday 27 April 2021
 After mvn clean package dockerfile:build -e on the parent pom (/home/willem/resources/git/manning-smia/chapter5/pom.xml)

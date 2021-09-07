@@ -4,7 +4,8 @@ PROBLEM DESCRIPTION
 We couldn't build a Java project using the com.spotify:docker-maven-plugin:1.4.13
 mvn clean package dockerfile:build -e
 It yielded a stacktrace with:
-[ERROR] Failed to execute goal com.spotify:dockerfile-maven-plugin:1.4.13:build (default-cli) on project configserver: Could not build image: java.io.IOException: Cannot run program "docker-credential-secretservice": error=2, No such file or directory -> [Help 1]
+[ERROR] Failed to execute goal com.spotify:dockerfile-maven-plugin:1.4.13:build (default-cli) on project configserver:
+Could not build image: java.io.IOException: Cannot run program "docker-credential-secretservice": error=2, No such file or directory -> [Help 1]
 
 Also trying to build the image from a Dockerfile from the cl wasn't possible:
 after a lot of lines logging build steps suddenly a file couldn't be found and again a mention of:
