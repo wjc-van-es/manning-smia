@@ -11,7 +11,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @SpringBootApplication
-@RefreshScope
+@RefreshScope // Only reloads the custom properties defined in the Config server and added this service's ServiceConfig
 public class LicenseServiceApplication {
 
 	public static void main(String[] args) {

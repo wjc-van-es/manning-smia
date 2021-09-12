@@ -28,11 +28,10 @@ public class LicenseService {
 	public List<License> getAllLicensesForOrganization(String organizationId){
 		List<License> fromDb = licenseRepository.findByOrganizationId(organizationId);
 
-		//Add the transient environment attribute to all license entities
-		List<License> result = fromDb.stream().map(license -> {
-			license.setEnvironment(config.getEnvironment());
-			return license;
-		}).collect(toList());
+		//Add the transient environment and secret attributes to all license entities
+		List<License> result = fromDb.stream().map(license ->
+			license.withEnvironmentAndSecret(config.getEnvironment(), config.getSecret())
+		).collect(toList());
 		return result;
 	}
 
@@ -42,20 +41,22 @@ public class LicenseService {
 			throw new IllegalArgumentException(String.format(messages.getMessage("license.search.error.message", null, null),licenseId, organizationId));	
 		}
 
-		return license.withEnvironment(config.getEnvironment());
+		// adding the configured environment from the injected ServiceConfig instance
+		// that gets it from the configuration server as ostock.environment per environment
+		return license.withEnvironmentAndSecret(config.getEnvironment(), config.getSecret());
 	}
 
 	public License createLicense(License license){
 		license.setLicenseId(UUID.randomUUID().toString());
 		licenseRepository.save(license);
 
-		return license.withEnvironment(config.getEnvironment());
+		return license.withEnvironmentAndSecret(config.getEnvironment(), config.getSecret());
 	}
 
 	public License updateLicense(License license){
 		licenseRepository.save(license);
 
-		return license.withEnvironment(config.getEnvironment());
+		return license.withEnvironmentAndSecret(config.getEnvironment(), config.getSecret());
 	}
 
 	public String deleteLicense(String licenseId){

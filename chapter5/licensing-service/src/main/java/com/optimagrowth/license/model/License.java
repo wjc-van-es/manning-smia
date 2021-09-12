@@ -31,8 +31,12 @@ public class License extends RepresentationModel<License> {
 	@Transient
 	private String environment;
 
-	public License withEnvironment(String environment){
+	@Transient
+	private String secret;
+
+	public License withEnvironmentAndSecret(String environment, String secret){
 		this.setEnvironment(environment);
+		this.setSecret(secret);
 		return this;
 	}
 }
