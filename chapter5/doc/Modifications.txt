@@ -108,3 +108,21 @@ willem@willem-Latitude-5590:~$ history | grep 'docker.*-v '
  1957  docker run -d -it --name oracle -p 1521:1521 -v /home/willem/docker-volumes/OracleDBData:/ORCL store/oracle/database-enterprise:12.2.0.1-slim
  1999  history | grep 'docker.*-v '
 willem@willem-Latitude-5590:~$
+========================================================================================================================
+Pushing images on Docker Hub
+----------------------------
+https://hub.docker.com/repositories
+manually on CLI
+docker push wjcvanes/licensing-service:tagname
+docker push wjcvanes/licensing-service:tagname
+or with maven:
+With
+mvn clean package dockerfile:build -e
+Local images are rebuild, but not pushed
+with
+mvn clean install dockerfile:build -e
+They are pushed, when the version isn't changed the image is overwritten in the Docker Hub repo
+
+Reminder:
+We would have the push working before drastically removing images
+removed images that can be downloaded again from Docker Hub after cleaning up images would be a good test.
