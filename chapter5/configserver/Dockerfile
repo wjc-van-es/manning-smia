@@ -21,7 +21,7 @@ FROM openjdk:11-slim
 #Add volume pointing to /tmp
 VOLUME /tmp
 
-#Copy unpackaged application to new container
+#Copy unpackaged application to new image
 ARG DEPENDENCY=/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF

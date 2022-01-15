@@ -1,6 +1,9 @@
 version: '3.9'
 services:
   database:
+
+    # this could be the host name of the db url
+    container_name: pg-db-on-dr
     image: postgres:latest
     ports:
       - "5400:5432"
